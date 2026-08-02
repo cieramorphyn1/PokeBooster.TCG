@@ -8,7 +8,6 @@
 </head>
 <body>
 
-  <!-- Efek Item Jatuh -->
   <div class="falling-layer">
     <div class="falling-item"></div>
     <div class="falling-item"></div>
@@ -39,7 +38,6 @@
     </nav>
   </header>
 
-  <!-- Audio Background -->
   <audio id="bgAudio" loop src="Cynthia Theme Piano.mp3"></audio>
   <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
 
@@ -134,7 +132,6 @@
       }
     });
 
-    // Handling Autoplay Audio
     document.addEventListener('click', function() {
       const audio = document.getElementById('bgAudio');
       if (audio && audio.paused) {
