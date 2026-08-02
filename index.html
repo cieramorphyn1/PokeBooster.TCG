@@ -9,7 +9,6 @@
 </head>
 <body>
 
-  <!-- Efek Item Jatuh -->
   <div class="falling-layer">
     <div class="falling-item"></div>
     <div class="falling-item"></div>
@@ -18,7 +17,6 @@
     <div class="falling-item"></div>
   </div>
 
-  <!-- Running Text Promosi -->
   <div class="running-text-container">
     <div class="running-text">
       🔥 SPECIAL PROMO: USE THE 10% DISCOUNT COUPON IN YOUR CART FOR ALL BOOSTER BOXES! (THE COLLECTOR PROTOCOL) 🔥
@@ -47,19 +45,17 @@
     </nav>
   </header>
 
-  <!-- Audio Background -->
   <audio id="bgAudio" loop src="Cynthia Theme Piano.mp3"></audio>
   <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
 
   <div class="container" style="padding-top: 1.5rem;">
-    <!-- Banner Tetap dengan Background Gambar -->
+    <!-- Banner Protocol -->
     <div class="protocol-banner-wrapper" style="background-image: url('./bg1 pokebosster.png');"> 
       <div class="protocol-badge">CHAMPION'S CHOICE</div>
       <h2>THE COLLECTOR PROTOCOL</h2>
       <p>Executing strict climate-controlled logistics & authentic factory-sealed protection for elite Pokémon TCG investors.</p>
     </div>
 
-    <!-- Banner Slider -->
     <div class="hero-slider-container">
       <div class="slide-item active" style="background-image: url('./bannerc1.png');">
         <div class="hero-overlay"></div>
@@ -109,7 +105,6 @@
     </div>
   </div>
 
-  <!-- Section Produk Unggulan -->
   <div class="container">
     <h2 class="section-title">Produk Unggulan</h2>
     <div class="featured-buttons-container">
@@ -127,7 +122,6 @@
       </div>
     </div>
 
-    <!-- SECTION BARU: Video Promosi YouTube -->
     <div class="video-promo-section">
       <h2 class="section-title" style="margin-top: 40px;">🎬 Video Promosi Official</h2>
       <div class="video-container">
@@ -136,7 +130,6 @@
     </div>
   </div>
 
-  <!-- Cart Drawer -->
   <div class="cart-drawer" id="cartDrawer">
     <div class="drawer-header">
       <h3>Shopping Cart</h3>
@@ -159,7 +152,6 @@
     </div>
   </div>
 
-  <!-- Footer Rapi & Seragam -->
   <footer>
     <div class="footer-content">
       <div class="footer-col">
@@ -225,25 +217,12 @@
 
     resetSlideTimer();
 
-    // Handling Autoplay Audio
     document.addEventListener('click', function() {
       const audio = document.getElementById('bgAudio');
       if (audio && audio.paused) {
         audio.play().catch(error => console.log("Autoplay diblokir browser:", error));
       }
     }, { once: true });
-
-    function toggleAudio() {
-      const audio = document.getElementById('bgAudio');
-      const btn = document.getElementById('audioBtn');
-      if (audio.paused) {
-        audio.play();
-        btn.textContent = '🔊';
-      } else {
-        audio.pause();
-        btn.textContent = '🔇';
-      }
-    }
   </script>
 </body>
 </html>
