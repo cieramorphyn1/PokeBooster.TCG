@@ -4,7 +4,7 @@ const products = [
     id: 1,
     name: "Evolving Skies Booster Box (EN)",
     lang: "en",
-    price: 38500000,
+    price: 3850000,
     img: "EVOLVINGSKIES.png",
     description: "EVOLVING SKIES. Terkenal dengan hit rate kartu Alternate Art sangat langka seperti Rayquaza VMAX dan 'Moonbreon' (Umbreon VMAX Alt Art). 100% factory sealed original."
   },
@@ -12,7 +12,7 @@ const products = [
     id: 2,
     name: "Mega Evolution Series Booster Box (EN)",
     lang: "en",
-    price: 18500000,
+    price: 2450000,
     img: "MEGAEVO.png",
     description: "Mega Evolution yang menampilkan ikon utama Mega Gardevoir dan Mega Lucario. Pilihan wajib bagi kolektor retro & penggemar mekanik Mega."
   },
@@ -20,7 +20,7 @@ const products = [
     id: 3,
     name: "Pitch Black Booster Box (EN)",
     lang: "en",
-    price: 3800000,
+    price: 2100000,
     img: "PITCHBLACK.png",
     description: "Pitch Black yang memuat kartu incaran utama Mega Darkrai sang pengantar tidur di kegelapan beserta deretan Pokémon tipe Dark & Shadow langka lainnya."
   },
@@ -30,7 +30,7 @@ const products = [
     id: 4,
     name: "Hitam & Putih Booster box (ID)",
     lang: "id",
-    price: 1250000,
+    price: 1850000,
     img: "HITAM & PUTIH.png",
     description: "Seri resmi Bahasa Indonesia yang menghadirkan cetakan kartu Foil bertekstur, Secret Rare, dan kemudahan akses chase card favorit pemain lokal."
   },
@@ -38,7 +38,7 @@ const products = [
     id: 5,
     name: "Kilau Hitam Booster Box (ID)",
     lang: "id",
-    price: 1100000,
+    price: 1350000,
     img: "KILAU HITAM.png",
     description: "Seri spesial Shiny Pokémon Bahasa Indonesia. Memuat puluhan Pokémon kilau (Shiny) serta Charizard ex Tera Type khusus kolektor Indonesia."
   },
@@ -46,7 +46,7 @@ const products = [
     id: 6,
     name: "Evolusi Mega Booster Box (ID)",
     lang: "id",
-    price: 950000,
+    price: 1650000,
     img: "MAID.png",
     description: "Rilisan resmi Bahasa Indonesia edisi Mega Evolution yang menampilkan Mega Gardevoir dan Mega Lucario serta dukungan kartu Supporter Full Art langka."
   },
@@ -56,15 +56,15 @@ const products = [
     id: 7,
     name: "High Class Pack Mega Dream EX (JP)",
     lang: "jp",
-    price: 2800000,
+    price: 2950000,
     img: "MEGA DREAM EX.png",
     description: "High Class Pack premium Jepang dengan jaminan Guaranteed Foil di setiap pack, kartu EX/SAR pilihan, dan kualitas cetakan khas Jepang yang sangat halus."
   },
   {
     id: 8,
-    name: "Phantasmal Flames Booster Box(JP)",
+    name: "Phantasmal Flames Booster Box (JP)",
     lang: "jp",
-    price: 1850000,
+    price: 2750000,
     img: "PHANTASMAL FLAMES.png",
     description: "Rilisan Jepang populer yang memuat Darkness Tera Charizard ex SAR. Kualitas kertas dan detail texture embossing terbaik standar Jepang."
   },
@@ -72,7 +72,7 @@ const products = [
     id: 9,
     name: "Scarlet ex Booster Box (JP)",
     lang: "jp",
-    price: 1450000,
+    price: 1200000,
     img: "SCARLET EX.png",
     description: "Seri pembuka era Scarlet & Violet Jepang yang memperkenalkan mekanik Terastalization, Koraidon ex SAR, dan Miraidon/Gardevoir ex Special Art Rare."
   }
@@ -93,11 +93,25 @@ function addToCart(id, event) {
   if (!item) return;
   
   const existing = cart.find(c => c.id === id);
-  if (existing) existing.qty += 1;
-  else cart.push({ ...item, qty: 1 });
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ ...item, qty: 1 });
+  }
   
   saveCart();
   toggleCartDrawer(true);
+}
+
+function updateQuantity(id, change) {
+  const item = cart.find(c => c.id === id);
+  if (!item) return;
+
+  item.qty += change;
+  if (item.qty <= 0) {
+    cart = cart.filter(c => c.id !== id);
+  }
+  saveCart();
 }
 
 function removeFromCart(id) {
@@ -120,7 +134,13 @@ function updateCartBadge() {
 
 function toggleCartDrawer(open) {
   const drawer = document.getElementById('cartDrawer');
-  if (drawer) drawer.classList.toggle('open', open);
+  if (!drawer) return;
+  if (open) {
+    drawer.style.right = '0';
+    renderCartDrawer();
+  } else {
+    drawer.style.right = '-400px';
+  }
 }
 
 function toggleMobileMenu() {
@@ -134,40 +154,33 @@ function renderCartDrawer() {
   const checkboxEl = document.getElementById('discountCheckbox');
   if (!cartContainer) return;
 
-  cartContainer.innerHTML = '';
-  
   if (cart.length === 0) {
-    cartContainer.innerHTML = '<p style="text-align:center; color:var(--text-muted); margin-top:20px;">Keranjang Anda kosong.</p>';
+    cartContainer.innerHTML = '<p style="text-align:center; color:#777; margin-top:20px;">Keranjang belanja Anda masih kosong.</p>';
+    if (totalPriceEl) totalPriceEl.textContent = 'Rp 0';
+    return;
   }
 
-  let total = cart.reduce((acc, curr) => acc + (curr.price * curr.qty), 0);
-
-  if (checkboxEl) {
-    checkboxEl.checked = discountApplied;
-  }
-
-  if (discountApplied) {
-    total = total * 0.9;
-  }
-
-  cart.forEach(item => {
-    cartContainer.innerHTML += `
-      <div class="cart-item" style="display:flex; align-items:center; gap:10px; margin-bottom:12px; border-bottom:1px solid #eee; padding-bottom:8px;">
-        <img src="${item.img}" class="cart-item-img" alt="${item.name}" style="width:45px; height:45px; object-fit:cover; border-radius:6px;" onerror="this.src='https://via.placeholder.com/45?text=TCG'">
-        <div style="flex:1;">
-          <h4 style="font-size:0.85rem; line-height:1.2; margin-bottom:4px;">${item.name}</h4>
-          <p style="color:var(--secondary-gold); font-weight:700; font-size:0.85rem; margin:0;">
-            Rp ${item.price.toLocaleString('id-ID')}
-          </p>
-          <small>Qty: ${item.qty}</small>
-        </div>
-        <button class="btn-delete-item" onclick="removeFromCart(${item.id})" style="background:none; border:none; cursor:pointer;">🗑️</button>
+  cartContainer.innerHTML = cart.map(item => `
+    <div style="display:flex; gap:10px; align-items:center; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
+      <img src="${item.img}" style="width:50px; height:50px; object-fit:contain; background:#f9f9f9; border-radius:6px; border:1px solid #ddd;" onerror="this.src='https://via.placeholder.com/50'">
+      <div style="flex:1;">
+        <h5 style="margin:0; font-size:0.9rem; color:#222;">${item.name}</h5>
+        <p style="margin:4px 0 0; font-size:0.8rem; color:#c92a2a; font-weight:700;">Rp ${item.price.toLocaleString('id-ID')}</p>
       </div>
-    `;
-  });
+      <div style="display:flex; align-items:center; gap:6px;">
+        <button onclick="updateQuantity(${item.id}, -1)" style="background:#ddd; border:none; width:22px; height:22px; border-radius:4px; cursor:pointer; font-weight:bold;">-</button>
+        <span style="font-size:0.85rem; font-weight:bold;">${item.qty}</span>
+        <button onclick="updateQuantity(${item.id}, 1)" style="background:#ddd; border:none; width:22px; height:22px; border-radius:4px; cursor:pointer; font-weight:bold;">+</button>
+      </div>
+    </div>
+  `).join('');
+
+  let subtotal = cart.reduce((acc, curr) => acc + (curr.price * curr.qty), 0);
+  if (checkboxEl) checkboxEl.checked = discountApplied;
+  let finalTotal = discountApplied ? subtotal * 0.9 : subtotal;
 
   if (totalPriceEl) {
-    totalPriceEl.textContent = `Rp ${Math.round(total).toLocaleString('id-ID')} ${discountApplied ? '(Kupon 10%)' : ''}`;
+    totalPriceEl.textContent = `Rp ${Math.round(finalTotal).toLocaleString('id-ID')}`;
   }
 }
 
@@ -185,26 +198,23 @@ function renderProducts(filterLang = 'all', searchQuery = '') {
   });
 
   if (filtered.length === 0) {
-    grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px 0;">Produk tidak ditemukan.</p>`;
+    grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px 0;">Tidak ada booster box yang ditemukan.</p>`;
     return;
   }
 
-  filtered.forEach(product => {
-    const card = document.createElement('div');
-    card.className = 'product-card';
-    card.onclick = () => goToDetail(product.id);
-    card.innerHTML = `
-      <div class="product-image-container">
-        <img src="${product.img}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/300x300?text=Pokebooster'">
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card" onclick="goToDetail(${p.id})" style="cursor:pointer; background:#fff; border-radius:12px; overflow:hidden; border:1px solid #e2ded4; padding:15px; display:flex; flex-direction:column;">
+      <div class="product-img-wrapper" style="width:100%; height:200px; display:flex; align-items:center; justify-content:center; background:#f9f8f5; border-radius:8px; overflow:hidden; padding:10px;">
+        <img src="${p.img}" alt="${p.name}" style="max-height:100%; max-width:100%; object-fit:contain;" onerror="this.src='https://via.placeholder.com/300x200?text=Pokebooster';">
       </div>
-      <div class="product-info">
-        <h3 class="product-title">${product.name}</h3>
-        <p class="product-price">Rp ${product.price.toLocaleString('id-ID')}</p>
-        <button class="btn-add-cart" onclick="addToCart(${product.id}, event)">+ Keranjang</button>
+      <div class="product-info" style="display:flex; flex-direction:column; flex:1; margin-top:12px;">
+        <span class="badge" style="background:var(--secondary-gold); color:#fff; padding:2px 8px; border-radius:10px; font-size:0.75rem; font-weight:700; text-transform:uppercase; width:fit-content;">SERI ${p.lang.toUpperCase()}</span>
+        <h3 style="margin:8px 0; font-size:1.1rem; color:var(--jet-black);">${p.name}</h3>
+        <p style="color:#c92a2a; font-weight:800; font-size:1.15rem; margin:4px 0 12px;">Rp ${p.price.toLocaleString('id-ID')}</p>
+        <button class="btn-primary" onclick="addToCart(${p.id}, event)" style="width:100%; padding:10px; font-size:0.9rem; margin-top:auto; background:var(--jet-black); color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:700;">+ Keranjang</button>
       </div>
-    `;
-    grid.appendChild(card);
-  });
+    </div>
+  `).join('');
 }
 
 /* Render Detail Produk di Halaman (detail.html) */
@@ -217,26 +227,24 @@ function renderProductDetail() {
   const product = products.find(p => p.id === productId) || products[0];
 
   detailContainer.innerHTML = `
-    <div class="product-detail-layout" style="display: flex; gap: 40px; flex-wrap: wrap; background: var(--card-bg); padding: 30px; border-radius: var(--radius-lg); border: 1px solid #e2ded4; box-shadow: var(--shadow-soft);">
-      <div style="flex: 1; min-width: 280px; text-align: center;">
-        <img src="${product.img}" alt="${product.name}" style="width: 100%; max-width: 380px; aspect-ratio: 1/1; object-fit: contain; border-radius: 12px; border: 1px solid #ddd;" onerror="this.src='https://via.placeholder.com/380x380?text=Pokebooster'">
+    <div style="display:flex; gap:30px; background:var(--card-bg, #fff); padding:30px; border-radius:12px; align-items:center; flex-wrap:wrap; border:1px solid #e2ded4; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+      <div style="flex:1; min-width:280px; text-align:center; background:#ffffff; border-radius:8px; padding:15px; border:1px solid #eee;">
+        <img src="${product.img}" style="width:100%; max-width:350px; aspect-ratio:1/1; object-fit:contain; border-radius:8px;" alt="${product.name}" onerror="this.src='https://via.placeholder.com/350x350?text=Pokebooster'">
       </div>
-      <div style="flex: 1.2; min-width: 280px; display: flex; flex-direction: column; justify-content: center;">
-        <span class="badge" style="align-self: flex-start; background: var(--secondary-gold); color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 12px; text-transform: uppercase;">
+      <div style="flex:1.2; min-width:280px;">
+        <span class="badge" style="display:inline-block; background:var(--secondary-gold); color:#fff; padding:4px 12px; border-radius:20px; font-size:0.8rem; font-weight:700; margin-bottom:12px; text-transform:uppercase;">
           SERI ${product.lang.toUpperCase()}
         </span>
-        <h1 style="font-size: 1.6rem; color: var(--jet-black); margin-bottom: 15px; line-height: 1.3;">${product.name}</h1>
-        <h2 style="font-size: 1.5rem; color: var(--primary-red); margin-bottom: 20px; font-weight: 800;">Rp ${product.price.toLocaleString('id-ID')}</h2>
+        <h1 style="margin-bottom:10px; font-size:1.6rem; color:var(--jet-black); line-height:1.3;">${product.name}</h1>
+        <h2 style="color:#c92a2a; font-size:1.8rem; margin-bottom:15px; font-weight:800;">Rp ${product.price.toLocaleString('id-ID')}</h2>
         
-        <div style="background: var(--accent-cream); padding: 18px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid var(--secondary-gold);">
-          <h4 style="margin-bottom: 6px; color: var(--jet-black);">Deskripsi Produk:</h4>
-          <p style="color: var(--text-dark); line-height: 1.6; font-size: 0.95rem;">${product.description}</p>
+        <div style="background:#f9f8f3; padding:16px; border-radius:8px; margin-bottom:20px; border-left:4px solid var(--secondary-gold);">
+          <p style="color:#333; line-height:1.6; font-size:0.95rem; margin:0;">
+            ${product.description}
+          </p>
         </div>
 
-        <div style="display: flex; gap: 15px;">
-          <button class="btn-primary" onclick="addToCart(${product.id}, event)" style="flex: 1; padding: 14px; font-size: 1rem;">+ Tambah ke Keranjang</button>
-          <a href="produk.html" class="btn-secondary" style="padding: 14px 20px; text-decoration: none; border: 1px solid #ccc; border-radius: var(--radius-md); color: var(--jet-black); font-weight: 600; display: inline-flex; align-items: center; justify-content: center;">Kembali</a>
-        </div>
+        <button class="btn-primary" onclick="addToCart(${product.id}, event)" style="padding:12px 24px; font-size:1rem; cursor:pointer; background:var(--jet-black); color:#fff; border:none; border-radius:8px; font-weight:700;">+ Masukkan Keranjang</button>
       </div>
     </div>
   `;
@@ -249,7 +257,6 @@ function initAudioState() {
   if (!audio) return;
 
   const audioState = localStorage.getItem('pbAudioStatus');
-  
   if (audioState === 'playing') {
     audio.play().then(() => {
       if (btn) btn.textContent = '🔊';
@@ -285,6 +292,7 @@ function goToDetail(id) {
   window.location.href = `detail.html?id=${id}`;
 }
 
+// Inisialisasi Utama saat Halaman Dimuat
 document.addEventListener('DOMContentLoaded', () => {
   updateCartBadge();
   renderCartDrawer();
@@ -294,16 +302,11 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProductDetail();
   }
 
-  if (document.getElementById('productGrid')) {
-    const urlParams = new URLSearchParams(window.location.search);
-    const lang = urlParams.get('lang') || 'all';
-    renderProducts(lang);
-
-    const searchInput = document.getElementById('searchInput');
-    if (searchInput) {
-      searchInput.addEventListener('input', (e) => {
-        renderProducts(lang, e.target.value);
-      });
+  // Interaksi pemutaran audio otomatis pertama kali klik di dokumen
+  document.addEventListener('click', function() {
+    const audio = document.getElementById('bgAudio');
+    if (audio && audio.paused && localStorage.getItem('pbAudioStatus') !== 'paused') {
+      audio.play().catch(error => console.log("Autoplay diblokir browser:", error));
     }
-  }
+  }, { once: true });
 });
