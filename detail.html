@@ -45,7 +45,7 @@
   <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
 
   <div class="container" style="min-height: 70vh; padding-top: 20px;">
-    <a href="produk.html" class="btn-back" style="display:inline-block; margin-bottom:20px; text-decoration:none; padding:8px 16px; background:#e2ded4; color:var(--jet-black); border-radius:8px; font-weight:600;">⬅️ Back to Catalog</a>
+    <a href="produk.html" class="btn-back" style="display:inline-block; margin-bottom:20px; text-decoration:none; padding:8px 16px; background:#e2ded4; color:var(--jet-black); border-radius:8px; font-weight:600;">⬅️ Kembali ke Katalog</a>
 
     <div id="detailContainer"></div>
   </div>
@@ -123,8 +123,8 @@
       if (container && p) {
         container.innerHTML = `
           <div style="display:flex; gap:30px; background:var(--card-bg); padding:30px; border-radius:var(--radius-lg); align-items:center; flex-wrap:wrap; border:1px solid #e2ded4; box-shadow:var(--shadow-soft);">
-            <div style="flex:1; min-width:280px; text-align:center;">
-              <img src="${p.img}" style="width:100%; max-width:380px; height:auto; max-height:380px; object-fit:contain; border-radius:var(--radius-md);" alt="${p.name}" onerror="this.src='https://via.placeholder.com/380x380?text=Pokebooster'">
+            <div style="flex:1; min-width:280px; text-align:center; background:#ffffff; border-radius:var(--radius-md); padding:15px; border:1px solid #eee;">
+              <img src="${p.img}" style="width:100%; max-width:350px; aspect-ratio:1/1; object-fit:contain; border-radius:8px;" alt="${p.name}" onerror="this.src='https://via.placeholder.com/350x350?text=Pokebooster'">
             </div>
             <div style="flex:1.2; min-width:280px;">
               <span class="badge" style="display:inline-block; background:var(--secondary-gold); color:#fff; padding:4px 12px; border-radius:20px; font-size:0.8rem; font-weight:700; margin-bottom:12px; text-transform:uppercase;">
