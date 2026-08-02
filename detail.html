@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pokebooster.tcg — Product Detail</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
+  <!-- Efek Item Jatuh -->
   <div class="falling-layer">
     <div class="falling-item"></div>
     <div class="falling-item"></div>
@@ -38,15 +40,17 @@
     </nav>
   </header>
 
+  <!-- Audio Background -->
   <audio id="bgAudio" loop src="Cynthia Theme Piano.mp3"></audio>
   <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
 
-  <div class="container" style="min-height: 70vh;">
-    <a href="produk.html" class="btn-back" style="margin-bottom:20px;">⬅️ Back</a>
+  <div class="container" style="min-height: 70vh; padding-top: 20px;">
+    <a href="produk.html" class="btn-back" style="display:inline-block; margin-bottom:20px; text-decoration:none; padding:8px 16px; background:#e2ded4; color:var(--jet-black); border-radius:8px; font-weight:600;">⬅️ Back to Catalog</a>
 
     <div id="detailContainer"></div>
   </div>
 
+  <!-- Cart Drawer -->
   <div class="cart-drawer" id="cartDrawer">
     <div class="drawer-header">
       <h3>Shopping Cart</h3>
@@ -69,6 +73,7 @@
     </div>
   </div>
 
+  <!-- Footer -->
   <footer>
     <div class="footer-content">
       <div class="footer-col">
@@ -112,44 +117,44 @@
     document.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
       const id = parseInt(params.get('id')) || 1;
-      const p = products.find(item => item.id === id);
+      const p = typeof products !== 'undefined' ? products.find(item => item.id === id) : null;
 
       const container = document.getElementById('detailContainer');
       if (container && p) {
         container.innerHTML = `
-          <div style="display:flex; gap:30px; background:var(--card-bg); padding:30px; border-radius:var(--radius-lg); align-items:center; flex-wrap:wrap; border:1px solid #e2ded4;">
-            <img src="${p.img}" style="width:100%; max-width:380px; height:380px; object-fit:cover; border-radius:var(--radius-md);" alt="${p.name}">
-            <div style="flex:1;">
-              <h1 style="margin-bottom:10px;">${p.name}</h1>
-              <h2 style="color:#c92a2a; font-size:1.8rem; margin-bottom:15px;">Rp ${p.price.toLocaleString('id-ID')}</h2>
-              <p style="color:var(--text-muted); margin-bottom:20px; line-height:1.6;">
-                ${p.desc || 'Booster Box Segel Factory Sealed (Pabrikan). Berisi Booster Pack siap unboxing dengan jaminan kartu Hit/Secret Rare original sesuai standar <i>The Collector Protocol</i>.'}
-              </p>
-              <button class="btn-primary" onclick="addToCart(${p.id})">+ Masukkan Keranjang</button>
+          <div style="display:flex; gap:30px; background:var(--card-bg); padding:30px; border-radius:var(--radius-lg); align-items:center; flex-wrap:wrap; border:1px solid #e2ded4; box-shadow:var(--shadow-soft);">
+            <div style="flex:1; min-width:280px; text-align:center;">
+              <img src="${p.img}" style="width:100%; max-width:380px; height:auto; max-height:380px; object-fit:contain; border-radius:var(--radius-md);" alt="${p.name}" onerror="this.src='https://via.placeholder.com/380x380?text=Pokebooster'">
+            </div>
+            <div style="flex:1.2; min-width:280px;">
+              <span class="badge" style="display:inline-block; background:var(--secondary-gold); color:#fff; padding:4px 12px; border-radius:20px; font-size:0.8rem; font-weight:700; margin-bottom:12px; text-transform:uppercase;">
+                SERI ${p.lang ? p.lang.toUpperCase() : 'TCG'}
+              </span>
+              <h1 style="margin-bottom:10px; font-size:1.6rem; color:var(--jet-black); line-height:1.3;">${p.name}</h1>
+              <h2 style="color:#c92a2a; font-size:1.8rem; margin-bottom:15px; font-weight:800;">Rp ${p.price.toLocaleString('id-ID')}</h2>
+              
+              <div style="background:var(--accent-cream, #f9f8f3); padding:16px; border-radius:8px; margin-bottom:20px; border-left:4px solid var(--secondary-gold);">
+                <p style="color:var(--text-dark, #333); line-height:1.6; font-size:0.95rem; margin:0;">
+                  ${p.description || 'Booster Box Segel Factory Sealed (Pabrikan). Berisi Booster Pack siap unboxing dengan jaminan kartu Hit/Secret Rare original sesuai standar <i>The Collector Protocol</i>.'}
+                </p>
+              </div>
+
+              <button class="btn-primary" onclick="addToCart(${p.id}, event)" style="padding:12px 24px; font-size:1rem; cursor:pointer;">+ Masukkan Keranjang</button>
             </div>
           </div>
         `;
+      } else if (container) {
+        container.innerHTML = `<p style="text-align:center; padding:50px 0; color:var(--text-muted);">Produk tidak ditemukan.</p>`;
       }
     });
 
+    // Handling Audio Autoplay setelah interaksi pengguna
     document.addEventListener('click', function() {
       const audio = document.getElementById('bgAudio');
       if (audio && audio.paused) {
         audio.play().catch(error => console.log("Autoplay diblokir browser:", error));
       }
     }, { once: true });
-
-    function toggleAudio() {
-      const audio = document.getElementById('bgAudio');
-      const btn = document.getElementById('audioBtn');
-      if (audio.paused) {
-        audio.play();
-        btn.textContent = '🔊';
-      } else {
-        audio.pause();
-        btn.textContent = '🔇';
-      }
-    }
   </script>
 </body>
 </html>
