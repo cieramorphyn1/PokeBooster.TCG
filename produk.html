@@ -284,15 +284,13 @@
 
       grid.innerHTML = filtered.map(p => `
         <div class="product-card" onclick="window.location.href='detail.html?id=${p.id}'" style="cursor:pointer;">
-          <div class="product-img-wrapper">
-            <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/300?text=Pokebooster'">
-          </div>
-          <div class="product-info">
-            <span class="badge" style="background:var(--secondary-gold); color:#fff; padding:2px 8px; border-radius:10px; font-size:0.75rem; font-weight:700; text-transform:uppercase;">SERI ${p.lang.toUpperCase()}</span>
+          <img src="${p.img}" alt="${p.name}" class="product-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Pokebooster';">
+          <div class="product-info" style="display:flex; flex-direction:column; height:100%;">
+            <span class="badge" style="background:var(--secondary-gold); color:#fff; padding:2px 8px; border-radius:10px; font-size:0.75rem; font-weight:700; text-transform:uppercase; width:fit-content;">SERI ${p.lang.toUpperCase()}</span>
             <h3 style="margin:8px 0; font-size:1.1rem; color:var(--jet-black);">${p.name}</h3>
             <p style="color:var(--text-muted); font-size:0.85rem; text-decoration:line-through; margin:0;">Market: ${p.marketPrice}</p>
             <p style="color:#c92a2a; font-weight:800; font-size:1.15rem; margin:4px 0 12px;">Rp ${p.price.toLocaleString('id-ID')}</p>
-            <button class="btn-primary" onclick="event.stopPropagation(); addToCart(${p.id}, event)" style="width:100%; padding:10px; font-size:0.9rem;">+ Keranjang</button>
+            <button class="btn-primary" onclick="event.stopPropagation(); addToCart(${p.id}, event)" style="width:100%; padding:10px; font-size:0.9rem; margin-top:auto;">+ Keranjang</button>
           </div>
         </div>
       `).join('');
