@@ -24,9 +24,6 @@
 
 body {
   background-color: #f4f0e8;
-  background-image: url('background.jpg');
-  background-repeat: repeat;
-  background-size: 350px auto;
   color: var(--text-dark);
   position: relative;
   overflow-x: hidden;
@@ -37,7 +34,7 @@ a {
   color: inherit;
 }
 
-/* --- Efek Animasi Item Jatuh --- */
+/* --- Efek Animasi Item Jatuh (Menggunakan POKEBALL.png) --- */
 .falling-layer {
   position: fixed;
   top: 0;
@@ -52,37 +49,31 @@ a {
 .falling-item {
   position: absolute;
   top: -50px;
-  width: 40px;
-  height: 40px;
-  background-image: url('falling-item.png');
+  width: 45px;
+  height: 45px;
+  background-image: url('POKEBALL.png');
   background-size: contain;
   background-repeat: no-repeat;
-  opacity: 0.8;
-  animation: fallAndFade 5s linear infinite;
+  opacity: 0.85;
+  animation: fallAndFade 6s linear infinite;
 }
 
-.falling-item:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 4.5s; }
-.falling-item:nth-child(2) { left: 30%; animation-delay: 1.5s; animation-duration: 5.5s; }
-.falling-item:nth-child(3) { left: 55%; animation-delay: 0.8s; animation-duration: 4.8s; }
-.falling-item:nth-child(4) { left: 75%; animation-delay: 2.2s; animation-duration: 5.2s; }
-.falling-item:nth-child(5) { left: 90%; animation-delay: 3.1s; animation-duration: 6s; }
+.falling-item:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 5s; }
+.falling-item:nth-child(2) { left: 25%; animation-delay: 1.5s; animation-duration: 6s; }
+.falling-item:nth-child(3) { left: 45%; animation-delay: 0.5s; animation-duration: 4.5s; }
+.falling-item:nth-child(4) { left: 65%; animation-delay: 2.2s; animation-duration: 5.5s; }
+.falling-item:nth-child(5) { left: 85%; animation-delay: 1s; animation-duration: 6.5s; }
 
 @keyframes fallAndFade {
   0% {
-    top: -50px;
+    top: -60px;
     opacity: 0.9;
     transform: translateY(0) rotate(0deg);
-    filter: blur(0px);
-  }
-  70% {
-    opacity: 0.6;
-    filter: blur(1px);
   }
   100% {
-    top: 25vh;
-    opacity: 0;
-    transform: translateY(0) rotate(180deg);
-    filter: blur(4px);
+    top: 100vh;
+    opacity: 0.1;
+    transform: translateY(0) rotate(360deg);
   }
 }
 
@@ -242,9 +233,7 @@ nav {
 /* Banner Tetap */
 .protocol-banner-wrapper {
   position: relative;
-  background-image: linear-gradient(rgba(26, 23, 16, 0.82), rgba(26, 23, 16, 0.82)), url('banner-protocol.jpg');
-  background-size: cover;
-  background-position: center;
+  background-color: #1a1710;
   color: #fff;
   padding: 30px 35px;
   border-radius: 24px 24px 10px 10px;
@@ -525,12 +514,6 @@ nav {
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
-.card-ultraball-badge {
-  position: absolute;
-  top: 18px; right: 18px;
-  z-index: 5;
-}
-
 /* --- PERBAIKAN TOTAL UKURAN GAMBAR --- */
 .product-card img,
 .product-img,
@@ -543,46 +526,6 @@ nav {
   margin-bottom: 12px;
   background: #ffffff;
   display: block !important;
-}
-
-.product-card div[style*="background-image"] {
-  width: 100% !important;
-  height: 200px !important;
-  background-size: contain !important;
-  background-repeat: no-repeat !important;
-  background-position: center !important;
-  background-color: #ffffff;
-  border-radius: 8px;
-  margin-bottom: 12px;
-}
-
-.card-amor-info {
-  background: var(--accent-cream);
-  padding: 10px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.card-amor-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--jet-black);
-  max-width: 65%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.card-amor-price {
-  font-size: 0.9rem;
-  font-weight: 800;
-  color: #c92a2a;
-  background: #ffe3e3;
-  padding: 4px 8px;
-  border-radius: 6px;
 }
 
 .btn-add-cart {
@@ -750,36 +693,6 @@ nav {
   width: 18px; height: 18px;
   accent-color: var(--secondary-gold);
   cursor: pointer;
-}
-
-.centered-wrapper {
-  min-height: 75vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  position: relative;
-  z-index: 1;
-}
-
-.form-box {
-  background: var(--card-bg);
-  padding: 30px;
-  border-radius: var(--radius-lg);
-  width: 100%;
-  max-width: 480px;
-  box-shadow: var(--shadow-soft);
-  border: 1px solid #e0e0e0;
-}
-
-.form-group { margin-bottom: 15px; }
-.form-group label { display: block; font-weight: 600; margin-bottom: 5px; }
-.form-group input, .form-group select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background: #fff;
 }
 
 /* Footer Rapi Seragam */
