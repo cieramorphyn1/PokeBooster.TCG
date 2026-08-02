@@ -7,77 +7,27 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* Efek Item Jatuh Menggunakan POKEBALL.png */
     .falling-layer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100vh; pointer-events: none; z-index: 0; overflow: hidden;
     }
-
     .falling-item {
-      position: absolute;
-      top: -50px;
-      width: 45px;
-      height: 45px;
-      background-image: url('POKEBALL.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      opacity: 0.85;
-      animation: fallAndFade 6s linear infinite;
+      position: absolute; top: -50px; width: 45px; height: 45px;
+      background-image: url('POKEBALL.png'); background-size: contain; background-repeat: no-repeat;
+      opacity: 0.85; animation: fallAndFade 6s linear infinite;
     }
-
     .falling-item:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 5s; }
     .falling-item:nth-child(2) { left: 25%; animation-delay: 1.5s; animation-duration: 6s; }
     .falling-item:nth-child(3) { left: 45%; animation-delay: 0.5s; animation-duration: 4.5s; }
     .falling-item:nth-child(4) { left: 65%; animation-delay: 2.2s; animation-duration: 5.5s; }
     .falling-item:nth-child(5) { left: 85%; animation-delay: 1s; animation-duration: 6.5s; }
-
     @keyframes fallAndFade {
-      0% {
-        top: -60px;
-        opacity: 0.9;
-        transform: translateY(0) rotate(0deg);
-      }
-      100% {
-        top: 100vh;
-        opacity: 0.1;
-        transform: translateY(0) rotate(360deg);
-      }
-    }
-
-    /* Perbaikan Tampilan Gambar Produk agar Tidak Terpotong */
-    .product-img-wrapper {
-      width: 100%;
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #f9f8f5;
-      border-radius: 8px;
-      overflow: hidden;
-      padding: 10px;
-    }
-
-    .product-img-wrapper img {
-      max-height: 100%;
-      max-width: 100%;
-      object-fit: contain; /* Memastikan seluruh gambar tampil utuh tanpa terpotong */
-      transition: transform 0.3s ease;
-    }
-
-    .product-card:hover .product-img-wrapper img {
-      transform: scale(1.05);
+      0% { top: -60px; opacity: 0.9; transform: translateY(0) rotate(0deg); }
+      100% { top: 100vh; opacity: 0.1; transform: translateY(0) rotate(360deg); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Efek Item Jatuh Menggunakan POKEBALL.png -->
   <div class="falling-layer">
     <div class="falling-item"></div>
     <div class="falling-item"></div>
@@ -108,11 +58,9 @@
     </nav>
   </header>
 
-  <!-- Audio Background -->
   <audio id="bgAudio" loop src="Cynthia Theme Piano.mp3"></audio>
   <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
 
-  <!-- Sidebar Filter Melayang Kiri -->
   <aside class="sidebar-floating" style="z-index: 10;">
     <button class="filter-btn active" id="btn-all" onclick="filterLanguage('all', this)">ALL</button>
     <button class="filter-btn" id="btn-id" onclick="filterLanguage('id', this)">ID</button>
@@ -120,15 +68,13 @@
     <button class="filter-btn" id="btn-jp" onclick="filterLanguage('jp', this)">JP</button>
   </aside>
 
-  <!-- Container Katalog Utama -->
   <div class="container main-catalog-container" style="position: relative; z-index: 1;">
     <h2 class="section-title">Booster Box Catalog</h2>
     
     <div class="search-container">
-      <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search booster box name..." onkeyup="filterSearch()">
+      <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search booster box name...">
     </div>
 
-    <!-- Container Grid Produk (3x3) -->
     <div class="product-grid" id="productGrid"></div>
   </div>
 
@@ -156,7 +102,6 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <footer style="position: relative; z-index: 10;">
     <div class="footer-content">
       <div class="footer-col">
@@ -195,244 +140,43 @@
     </div>
   </footer>
 
-  <!-- Script Data & Logika Utama + Keranjang Belanja -->
+  <script src="script.js"></script>
   <script>
-    const products = [
-      {
-        id: 1,
-        name: "Evolving Skies Booster Box",
-        lang: "en",
-        price: 3850000,
-        marketPrice: "Rp 4.200.000",
-        img: "EVOLVINGSKIES.png",
-        description: "Booster Box Seri Inggris legendaris pencari Alternate Art Umbreon VMAX."
-      },
-      {
-        id: 2,
-        name: "Mega Evolution Booster Box",
-        lang: "en",
-        price: 2450000,
-        marketPrice: "Rp 2.800.000",
-        img: "MEGAEVO.png",
-        description: "Seri Inggris dengan mekanik Mega Evolution klasik."
-      },
-      {
-        id: 3,
-        name: "Pitch Black Booster Box",
-        lang: "en",
-        price: 2100000,
-        marketPrice: "Rp 2.400.000",
-        img: "PITCHBLACK.png",
-        description: "Booster Box Seri Inggris edisi gelap penuh misteri."
-      },
-      {
-        id: 4,
-        name: "Hitam dan Putih Booster Box",
-        lang: "id",
-        price: 1850000,
-        marketPrice: "Rp 2.150.000",
-        img: "HITAM & PUTIH.png",
-        description: "Seri Indonesia klasik era Black & White."
-      },
-      {
-        id: 5,
-        name: "Kilau Hitam Booster Box",
-        lang: "id",
-        price: 1350000,
-        marketPrice: "Rp 1.600.000",
-        img: "KILAU HITAM.png",
-        description: "Booster Box Seri Indonesia populer dengan variasi Pokémon Bersinar."
-      },
-      {
-        id: 6,
-        name: "Evolusi Mega Booster Box",
-        lang: "id",
-        price: 1650000,
-        marketPrice: "Rp 1.950.000",
-        img: "MAID.png",
-        description: "Seri Indonesia edisi spesial evolusi Mega."
-      },
-      {
-        id: 7,
-        name: "Mega Dream Booster Box",
-        lang: "jp",
-        price: 2950000,
-        marketPrice: "Rp 3.400.000",
-        img: "MEGA DREAM EX.png",
-        description: "Booster Box High Class Pack Seri Jepang."
-      },
-      {
-        id: 8,
-        name: "Phantasmal Flames Booster Box",
-        lang: "jp",
-        price: 2750000,
-        marketPrice: "Rp 3.100.000",
-        img: "PHANTASMAL FLAMES.png",
-        description: "Seri Jepang bertema kobaran api hantu."
-      },
-      {
-        id: 9,
-        name: "Scarlet ex Booster Box",
-        lang: "jp",
-        price: 1200000,
-        marketPrice: "Rp 1.450.000",
-        img: "SCARLET EX.png",
-        description: "Booster Box Seri Jepang era Scarlet & Violet dasar."
-      }
-    ];
-
-    let currentFilter = 'all';
-    let cart = JSON.parse(localStorage.getItem('pokebooster_cart')) || [];
-    let isDiscountApplied = false;
-
+    // Handler khusus halaman katalog untuk tombol filter bahasa
     function filterLanguage(lang, btn) {
-      currentFilter = lang;
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
-      filterSearch();
-    }
-
-    function filterSearch() {
-      const query = document.getElementById('searchInput') ? document.getElementById('searchInput').value.toLowerCase() : '';
-      const grid = document.getElementById('productGrid');
-      if (!grid) return;
-
-      const filtered = products.filter(p => {
-        const matchLang = (currentFilter === 'all' || p.lang === currentFilter);
-        const matchQuery = p.name.toLowerCase().includes(query);
-        return matchLang && matchQuery;
-      });
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding:40px; color:var(--text-muted);">Tidak ada booster box yang ditemukan.</p>`;
-        return;
-      }
-
-      grid.innerHTML = filtered.map(p => `
-        <div class="product-card" onclick="window.location.href='detail.html?id=${p.id}'" style="cursor:pointer; background:#fff; border-radius:12px; overflow:hidden; border:1px solid #e2ded4; padding:15px; display:flex; flex-direction:column;">
-          <div class="product-img-wrapper">
-            <img src="${p.img}" alt="${p.name}" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Pokebooster';">
-          </div>
-          <div class="product-info" style="display:flex; flex-direction:column; flex:1; margin-top:12px;">
-            <span class="badge" style="background:var(--secondary-gold); color:#fff; padding:2px 8px; border-radius:10px; font-size:0.75rem; font-weight:700; text-transform:uppercase; width:fit-content;">SERI ${p.lang.toUpperCase()}</span>
-            <h3 style="margin:8px 0; font-size:1.1rem; color:var(--jet-black);">${p.name}</h3>
-            <p style="color:var(--text-muted); font-size:0.85rem; text-decoration:line-through; margin:0;">Market: ${p.marketPrice}</p>
-            <p style="color:#c92a2a; font-weight:800; font-size:1.15rem; margin:4px 0 12px;">Rp ${p.price.toLocaleString('id-ID')}</p>
-            <button class="btn-primary" onclick="event.stopPropagation(); addToCart(${p.id}, event)" style="width:100%; padding:10px; font-size:0.9rem; margin-top:auto; background:var(--jet-black); color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:700;">+ Keranjang</button>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // Fungsi Pengelolaan Keranjang Belanja
-    function addToCart(productId, event) {
-      const product = products.find(p => p.id === productId);
-      if (!product) return;
-
-      const existingItem = cart.find(item => item.id === productId);
-      if (existingItem) {
-        existingItem.qty += 1;
-      } else {
-        cart.push({ ...product, qty: 1 });
-      }
-
-      saveAndSyncCart();
-      toggleCartDrawer(true);
-    }
-
-    function updateQuantity(productId, change) {
-      const item = cart.find(i => i.id === productId);
-      if (!item) return;
-
-      item.qty += change;
-      if (item.qty <= 0) {
-        cart = cart.filter(i => i.id !== productId);
-      }
-      saveAndSyncCart();
-    }
-
-    function saveAndSyncCart() {
-      localStorage.setItem('pokebooster_cart', JSON.stringify(cart));
-      updateCartUI();
-    }
-
-    function updateCartUI() {
-      const badge = document.getElementById('cartBadge');
-      const container = document.getElementById('cartItems');
-      const totalElement = document.getElementById('cartTotal');
-
-      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
-      if (badge) badge.innerText = totalItems;
-
-      if (!container) return;
-
-      if (cart.length === 0) {
-        container.innerHTML = `<p style="text-align:center; color:#777; margin-top:40px;">Keranjang belanja Anda masih kosong.</p>`;
-        if (totalElement) totalElement.innerText = 'Rp 0';
-        return;
-      }
-
-      container.innerHTML = cart.map(item => `
-        <div style="display:flex; gap:10px; align-items:center; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
-          <img src="${item.img}" style="width:50px; height:50px; object-fit:contain; background:#f9f9f9; border-radius:6px; border:1px solid #ddd;" onerror="this.src='https://via.placeholder.com/50'">
-          <div style="flex:1;">
-            <h5 style="margin:0; font-size:0.9rem; color:#222;">${item.name}</h5>
-            <p style="margin:4px 0 0; font-size:0.8rem; color:#c92a2a; font-weight:700;">Rp ${item.price.toLocaleString('id-ID')}</p>
-          </div>
-          <div style="display:flex; align-items:center; gap:6px;">
-            <button onclick="updateQuantity(${item.id}, -1)" style="background:#ddd; border:none; width:22px; height:22px; border-radius:4px; cursor:pointer; font-weight:bold;">-</button>
-            <span style="font-size:0.85rem; font-weight:bold;">${item.qty}</span>
-            <button onclick="updateQuantity(${item.id}, 1)" style="background:#ddd; border:none; width:22px; height:22px; border-radius:4px; cursor:pointer; font-weight:bold;">+</button>
-          </div>
-        </div>
-      `).join('');
-
-      let subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-      let finalTotal = isDiscountApplied ? subtotal * 0.9 : subtotal;
-
-      if (totalElement) {
-        totalElement.innerText = `Rp ${finalTotal.toLocaleString('id-ID')}`;
-      }
-    }
-
-    function toggleCartDrawer(open) {
-      const drawer = document.getElementById('cartDrawer');
-      if (!drawer) return;
-      if (open) {
-        drawer.style.right = '0';
-        updateCartUI();
-      } else {
-        drawer.style.right = '-400px';
-      }
-    }
-
-    function toggleDiscount(isChecked) {
-      isDiscountApplied = isChecked;
-      updateCartUI();
+      const searchInput = document.getElementById('searchInput');
+      const query = searchInput ? searchInput.value : '';
+      renderProducts(lang, query);
     }
 
     document.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
-      const langParam = urlParams.get('lang');
-      if (langParam) {
-        currentFilter = langParam;
-        const targetBtn = document.getElementById(`btn-${langParam}`);
-        if (targetBtn) {
-          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-          targetBtn.classList.add('active');
-        }
+      const langParam = urlParams.get('lang') || 'all';
+      
+      const targetBtn = document.getElementById(`btn-${langParam}`);
+      if (targetBtn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        targetBtn.classList.add('active');
       }
-      filterSearch();
-      updateCartUI();
-    });
+      
+      renderProducts(langParam);
 
-    // Audio background handler
-    document.addEventListener('click', function() {
-      const audio = document.getElementById('bgAudio');
-      if (audio && audio.paused) {
-        audio.play().catch(error => console.log("Autoplay diblokir browser:", error));
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          const activeBtn = document.querySelector('.filter-btn.active');
+          let currentLang = 'all';
+          if (activeBtn) {
+            if (activeBtn.id === 'btn-id') currentLang = 'id';
+            else if (activeBtn.id === 'btn-en') currentLang = 'en';
+            else if (activeBtn.id === 'btn-jp') currentLang = 'jp';
+          }
+          renderProducts(currentLang, e.target.value);
+        });
       }
-    }, { once: true });
+    });
   </script>
 </body>
 </html>
