@@ -5,7 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pokebooster.tcg — Print Invoice</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
+    /* Efek Item Jatuh Menggunakan POKEBALL.png */
+    .falling-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .falling-item {
+      position: absolute;
+      top: -50px;
+      width: 45px;
+      height: 45px;
+      background-image: url('POKEBALL.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.85;
+      animation: fallAndFade 6s linear infinite;
+    }
+
+    .falling-item:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 5s; }
+    .falling-item:nth-child(2) { left: 25%; animation-delay: 1.5s; animation-duration: 6s; }
+    .falling-item:nth-child(3) { left: 45%; animation-delay: 0.5s; animation-duration: 4.5s; }
+    .falling-item:nth-child(4) { left: 65%; animation-delay: 2.2s; animation-duration: 5.5s; }
+    .falling-item:nth-child(5) { left: 85%; animation-delay: 1s; animation-duration: 6.5s; }
+
+    @keyframes fallAndFade {
+      0% {
+        top: -60px;
+        opacity: 0.9;
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        top: 100vh;
+        opacity: 0.1;
+        transform: translateY(0) rotate(360deg);
+      }
+    }
+
     .invoice-card {
       background: var(--card-bg);
       border: 2px solid var(--jet-black);
@@ -37,7 +81,7 @@
 </head>
 <body>
 
-  <!-- Efek Item Jatuh -->
+  <!-- Efek Item Jatuh Menggunakan POKEBALL.png -->
   <div class="falling-layer">
     <div class="falling-item"></div>
     <div class="falling-item"></div>
@@ -50,7 +94,7 @@
   <audio id="bgAudio" loop src="Cynthia Theme Piano.mp3"></audio>
   <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
 
-  <div class="container" style="min-height: 75vh;">
+  <div class="container" style="min-height: 75vh; position: relative; z-index: 1; padding-top: 20px;">
     <div style="max-width: 550px; margin: 0 auto 5px; text-align: left;">
       <a href="riwayat.html" class="btn-back">⬅️ Back</a>
     </div>
@@ -70,7 +114,7 @@
     </div>
   </div>
 
-  <footer>
+  <footer style="position: relative; z-index: 10;">
     <div class="footer-content">
       <div class="footer-col">
         <h4>Products</h4>
