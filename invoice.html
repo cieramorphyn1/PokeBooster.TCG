@@ -1,6 +1,3 @@
-<!-- =========================================================
-     FILENAME: invoice.html
-     ========================================================= -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -19,8 +16,23 @@
       box-shadow: var(--shadow-soft);
       position: relative;
     }
-    .inv-header { text-align: center; border-bottom: 2px solid var(--primary-gold); padding-bottom: 15px; margin-bottom: 20px; }
-    .btn-print { background: var(--jet-black); color: var(--primary-gold); border: none; padding: 12px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 20px; }
+    .inv-header { 
+      text-align: center; 
+      border-bottom: 2px solid var(--primary-gold); 
+      padding-bottom: 15px; 
+      margin-bottom: 20px; 
+    }
+    .btn-print { 
+      background: var(--jet-black); 
+      color: var(--primary-gold); 
+      border: none; 
+      padding: 12px 20px; 
+      font-weight: bold; 
+      border-radius: 6px; 
+      cursor: pointer; 
+      width: 100%; 
+      margin-top: 20px; 
+    }
   </style>
 </head>
 <body>
@@ -34,7 +46,8 @@
     <div class="falling-item"></div>
   </div>
 
-  <audio id="bgAudio" loop src="bgm.mp3"></audio> <!-- <--- INPUT FILE AUDIO BGM -->
+  <!-- Audio Background -->
+  <audio id="bgAudio" loop src="Cynthia Theme Piano.mp3"></audio>
   <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
 
   <div class="container" style="min-height: 75vh;">
@@ -107,6 +120,26 @@
       document.getElementById('invEmail').textContent = 'Email Customer: ' + order.email;
       document.getElementById('invDate').textContent = 'Tanggal Order: ' + order.date;
       document.getElementById('invEta').textContent = 'Perkiraan Tanggal Tiba: ' + order.eta;
+    }
+
+    // Handling Autoplay Audio
+    document.addEventListener('click', function() {
+      const audio = document.getElementById('bgAudio');
+      if (audio && audio.paused) {
+        audio.play().catch(error => console.log("Autoplay diblokir browser:", error));
+      }
+    }, { once: true });
+
+    function toggleAudio() {
+      const audio = document.getElementById('bgAudio');
+      const btn = document.getElementById('audioBtn');
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = '🔊';
+      } else {
+        audio.pause();
+        btn.textContent = '🔇';
+      }
     }
   </script>
 </body>
