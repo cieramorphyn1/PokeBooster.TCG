@@ -8,7 +8,6 @@
 </head>
 <body>
 
-  <!-- Efek Item Jatuh -->
   <div class="falling-layer">
     <div class="falling-item"></div>
     <div class="falling-item"></div>
@@ -24,7 +23,6 @@
     </div>
   </header>
 
-  <!-- Audio Background -->
   <audio id="bgAudio" loop src="Cynthia Theme Piano.mp3"></audio>
   <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
 
@@ -49,7 +47,7 @@
           <label>Metode Pembayaran</label>
           <select id="payment">
             <option value="qris">QRIS (Otomatis)</option>
-            <option value="bank">Transfer Bank BSI / BCA</option>
+            <option value="bank">Transfer Bank</option>
           </select>
         </div>
         <button type="submit" class="btn-primary" style="width:100%;">Konfirmasi & Bayar</button>
@@ -120,7 +118,6 @@
       window.location.href = 'transaksi.html';
     });
 
-    // Handling Autoplay Audio
     document.addEventListener('click', function() {
       const audio = document.getElementById('bgAudio');
       if (audio && audio.paused) {
