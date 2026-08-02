@@ -411,8 +411,9 @@ nav {
   background: var(--primary-gold);
 }
 
+/* Container dengan margin-left agar tidak tertutup sidebar filter */
 .container {
-  padding: 2.5rem 5%;
+  padding: 2.5rem 5% 2.5rem 80px;
   position: relative;
   z-index: 1;
 }
@@ -494,21 +495,29 @@ nav {
   border: 0;
 }
 
+/* --- GRID KARTU PRODUK PERBAIKAN --- */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 25px;
+  align-items: stretch;
 }
 
 .product-card {
   background: var(--card-bg);
   border-radius: var(--radius-md);
-  padding: 12px;
+  padding: 16px;
   box-shadow: var(--shadow-soft);
   border: 1px solid #e2ded4;
   position: relative;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  max-width: 100%;
+  overflow: hidden; /* Mencegah elemen dalam bocor keluar */
 }
 
 .product-card:hover {
@@ -522,17 +531,30 @@ nav {
   z-index: 5;
 }
 
-/* --- FIX GAMBAR RAKSASA TERKUNCI RAPI --- */
-.product-img, 
-.product-card img {
-  width: 100%;
-  height: 220px !important;
-  max-height: 220px !important;
+/* --- PERBAIKAN TOTAL UKURAN GAMBAR --- */
+.product-card img,
+.product-img,
+.product-card .img-container img {
+  width: 100% !important;
+  height: 200px !important;
+  max-height: 200px !important;
   object-fit: contain !important;
   border-radius: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   background: #ffffff;
-  display: block;
+  display: block !important;
+}
+
+/* Jika gambar berupa background-image pada div */
+.product-card div[style*="background-image"] {
+  width: 100% !important;
+  height: 200px !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-color: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 12px;
 }
 
 .card-amor-info {
@@ -549,14 +571,14 @@ nav {
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--jet-black);
-  max-width: 60%;
+  max-width: 65%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .card-amor-price {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 800;
   color: #c92a2a;
   background: #ffe3e3;
@@ -569,10 +591,11 @@ nav {
   background: var(--jet-black);
   color: #fff;
   border: none;
-  padding: 8px;
+  padding: 10px;
   border-radius: 6px;
   font-weight: 700;
   cursor: pointer;
+  margin-top: auto;
 }
 
 .btn-add-cart:hover {
@@ -617,7 +640,7 @@ nav {
 .profile-info h3 { margin-bottom: 12px; font-size: 1.2rem; }
 .profile-info p { margin-bottom: 6px; font-size: 0.95rem; }
 
-/* Filter & Search */
+/* Filter & Search (Diperbaiki agar z-index pas) */
 .sidebar-floating {
   position: fixed;
   left: 15px;
@@ -630,6 +653,7 @@ nav {
   flex-direction: column;
   gap: 12px;
   z-index: 90;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 .filter-btn {
@@ -839,6 +863,7 @@ footer {
   .product-grid { grid-template-columns: 1fr; }
   
   .container {
+    padding-left: 5% !important;
     margin-left: 0 !important;
   }
 
