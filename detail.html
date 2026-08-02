@@ -78,8 +78,8 @@
         <li><a href="about.html">About</a></li>
         <li><a href="profil.html">Profile</a></li>
       </ul>
-      <button class="cart-trigger" onclick="toggleCartDrawer(true)">
-        🛒 <span class="cart-badge" id="cartBadge">0</span>
+      <button class="cart-trigger" onclick="toggleCartDrawer(true)" style="background:none; border:none; cursor:pointer; font-size:1.3rem; position:relative; display: flex; align-items: center; justify-content: center; padding: 5px;">
+        🛒 <span class="cart-badge" id="cartBadge" style="background:#c92a2a; color:#fff; border-radius:50%; padding:2px 6px; font-size:0.7rem; position:absolute; top:-2px; right:-8px; font-weight:bold;">0</span>
       </button>
     </nav>
   </header>
@@ -95,25 +95,26 @@
   </div>
 
   <!-- Cart Drawer -->
-  <div class="cart-drawer" id="cartDrawer">
-    <div class="drawer-header">
-      <h3>Shopping Cart</h3>
+  <div class="cart-drawer" id="cartDrawer" style="z-index: 1000; position: fixed; right: -400px; top: 0; width: 350px; height: 100%; background: #fff; box-shadow: -5px 0 15px rgba(0,0,0,0.1); transition: right 0.3s ease; display: flex; flex-direction: column;">
+    <div class="drawer-header" style="padding: 20px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
+      <h3 style="margin:0;">Shopping Cart</h3>
       <button onclick="toggleCartDrawer(false)" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
     </div>
-    <div class="cart-items" id="cartItems"></div>
     
-    <div class="coupon-checkbox-container">
-      <label class="coupon-label">
+    <div class="cart-items" id="cartItems" style="flex: 1; overflow-y: auto; padding: 20px;"></div>
+    
+    <div class="coupon-checkbox-container" style="padding: 10px 20px; border-top: 1px solid #eee;">
+      <label class="coupon-label" style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.9rem;">
         <input type="checkbox" id="discountCheckbox" onchange="toggleDiscount(this.checked)">
         <span>🎟️ Gunakan Kupon Diskon 10%</span>
       </label>
     </div>
 
-    <div class="drawer-footer">
+    <div class="drawer-footer" style="padding: 20px; border-top: 1px solid #ddd; background: #faf9f5;">
       <div class="total-price" style="display:flex; justify-content:space-between; font-weight:800; margin-bottom:15px;">
         <span>Total:</span><span id="cartTotal">Rp 0</span>
       </div>
-      <a href="checkout.html" class="btn-primary" style="display:block; text-align:center;">Proceed to Checkout</a>
+      <a href="checkout.html" class="btn-primary" style="display:block; text-align:center; padding: 12px; background:var(--jet-black); color:#fff; border-radius:8px; text-decoration:none; font-weight:700;">Proceed to Checkout</a>
     </div>
   </div>
 
@@ -156,19 +157,194 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Script Data Produk & Logika Keranjang yang Konsisten -->
   <script>
+    const products = [
+      {
+        id: 1,
+        name: "Evolving Skies Booster Box",
+        lang: "en",
+        price: 3850000,
+        marketPrice: "Rp 4.200.000",
+        img: "EVOLVINGSKIES.png",
+        description: "Booster Box Seri Inggris legendaris pencari Alternate Art Umbreon VMAX."
+      },
+      {
+        id: 2,
+        name: "Mega Evolution Booster Box",
+        lang: "en",
+        price: 2450000,
+        marketPrice: "Rp 2.800.000",
+        img: "MEGAEVO.png",
+        description: "Seri Inggris dengan mekanik Mega Evolution klasik."
+      },
+      {
+        id: 3,
+        name: "Pitch Black Booster Box",
+        lang: "en",
+        price: 2100000,
+        marketPrice: "Rp 2.400.000",
+        img: "PITCHBLACK.png",
+        description: "Booster Box Seri Inggris edisi gelap penuh misteri."
+      },
+      {
+        id: 4,
+        name: "Hitam dan Putih Booster Box",
+        lang: "id",
+        price: 1850000,
+        marketPrice: "Rp 2.150.000",
+        img: "HITAM & PUTIH.png",
+        description: "Seri Indonesia klasik era Black & White."
+      },
+      {
+        id: 5,
+        name: "Kilau Hitam Booster Box",
+        lang: "id",
+        price: 1350000,
+        marketPrice: "Rp 1.600.000",
+        img: "KILAU HITAM.png",
+        description: "Booster Box Seri Indonesia populer dengan variasi Pokémon Bersinar."
+      },
+      {
+        id: 6,
+        name: "Evolusi Mega Booster Box",
+        lang: "id",
+        price: 1650000,
+        marketPrice: "Rp 1.950.000",
+        img: "MAID.png",
+        description: "Seri Indonesia edisi spesial evolusi Mega."
+      },
+      {
+        id: 7,
+        name: "Mega Dream Booster Box",
+        lang: "jp",
+        price: 2950000,
+        marketPrice: "Rp 3.400.000",
+        img: "MEGA DREAM EX.png",
+        description: "Booster Box High Class Pack Seri Jepang."
+      },
+      {
+        id: 8,
+        name: "Phantasmal Flames Booster Box",
+        lang: "jp",
+        price: 2750000,
+        marketPrice: "Rp 3.100.000",
+        img: "PHANTASMAL FLAMES.png",
+        description: "Seri Jepang bertema kobaran api hantu."
+      },
+      {
+        id: 9,
+        name: "Scarlet ex Booster Box",
+        lang: "jp",
+        price: 1200000,
+        marketPrice: "Rp 1.450.000",
+        img: "SCARLET EX.png",
+        description: "Booster Box Seri Jepang era Scarlet & Violet dasar."
+      }
+    ];
+
+    let cart = JSON.parse(localStorage.getItem('pokebooster_cart')) || [];
+    let isDiscountApplied = false;
+
+    // Fungsi Pengelolaan Keranjang Belanja yang Sama persis dengan Katalog
+    function addToCart(productId, event) {
+      if(event) event.stopPropagation();
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      const existingItem = cart.find(item => item.id === productId);
+      if (existingItem) {
+        existingItem.qty += 1;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+
+      saveAndSyncCart();
+      toggleCartDrawer(true);
+    }
+
+    function updateQuantity(productId, change) {
+      const item = cart.find(i => i.id === productId);
+      if (!item) return;
+
+      item.qty += change;
+      if (item.qty <= 0) {
+        cart = cart.filter(i => i.id !== productId);
+      }
+      saveAndSyncCart();
+    }
+
+    function saveAndSyncCart() {
+      localStorage.setItem('pokebooster_cart', JSON.stringify(cart));
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const badge = document.getElementById('cartBadge');
+      const container = document.getElementById('cartItems');
+      const totalElement = document.getElementById('cartTotal');
+
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      if (badge) badge.innerText = totalItems;
+
+      if (!container) return;
+
+      if (cart.length === 0) {
+        container.innerHTML = `<p style="text-align:center; color:#777; margin-top:40px;">Keranjang belanja Anda masih kosong.</p>`;
+        if (totalElement) totalElement.innerText = 'Rp 0';
+        return;
+      }
+
+      container.innerHTML = cart.map(item => `
+        <div style="display:flex; gap:10px; align-items:center; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
+          <img src="${item.img}" style="width:50px; height:50px; object-fit:contain; background:#f9f9f9; border-radius:6px; border:1px solid #ddd;" onerror="this.src='https://via.placeholder.com/50'">
+          <div style="flex:1;">
+            <h5 style="margin:0; font-size:0.9rem; color:#222;">${item.name}</h5>
+            <p style="margin:4px 0 0; font-size:0.8rem; color:#c92a2a; font-weight:700;">Rp ${item.price.toLocaleString('id-ID')}</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <button onclick="updateQuantity(${item.id}, -1)" style="background:#ddd; border:none; width:22px; height:22px; border-radius:4px; cursor:pointer; font-weight:bold;">-</button>
+            <span style="font-size:0.85rem; font-weight:bold;">${item.qty}</span>
+            <button onclick="updateQuantity(${item.id}, 1)" style="background:#ddd; border:none; width:22px; height:22px; border-radius:4px; cursor:pointer; font-weight:bold;">+</button>
+          </div>
+        </div>
+      `).join('');
+
+      let subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      let finalTotal = isDiscountApplied ? subtotal * 0.9 : subtotal;
+
+      if (totalElement) {
+        totalElement.innerText = `Rp ${finalTotal.toLocaleString('id-ID')}`;
+      }
+    }
+
+    function toggleCartDrawer(open) {
+      const drawer = document.getElementById('cartDrawer');
+      if (!drawer) return;
+      if (open) {
+        drawer.style.right = '0';
+        updateCartUI();
+      } else {
+        drawer.style.right = '-400px';
+      }
+    }
+
+    function toggleDiscount(isChecked) {
+      isDiscountApplied = isChecked;
+      updateCartUI();
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
       const id = parseInt(params.get('id')) || 1;
-      const p = typeof products !== 'undefined' ? products.find(item => item.id === id) : null;
+      const p = products.find(item => item.id === id);
 
       const container = document.getElementById('detailContainer');
       if (container && p) {
         container.innerHTML = `
-          <div style="display:flex; gap:30px; background:var(--card-bg); padding:30px; border-radius:var(--radius-lg); align-items:center; flex-wrap:wrap; border:1px solid #e2ded4; box-shadow:var(--shadow-soft);">
-            <div style="flex:1; min-width:280px; text-align:center; background:#ffffff; border-radius:var(--radius-md); padding:15px; border:1px solid #eee;">
-              <img src="${p.img}" style="width:100%; max-width:350px; aspect-ratio:1/1; object-fit:contain; border-radius:8px;" alt="${p.name}" onerror="this.src='https://via.placeholder.com/350x350?text=Pokebooster'">
+          <div style="display:flex; gap:30px; background:var(--card-bg); padding:30px; border-radius:var(--radius-lg, 12px); align-items:center; flex-wrap:wrap; border:1px solid #e2ded4; box-shadow:var(--shadow-soft);">
+            <div style="flex:1; min-width:280px; text-align:center; background:#ffffff; border-radius:8px; padding:15px; border:1px solid #eee;">
+              <img src="${p.img}" style="width:100%; max-width:350px; aspect-ratio:1/1; object-fit:contain; border-radius:8px;" alt="${p.name}" onerror="this.src='https://via.placeholder.com/350x350?text=Pokebooster';">
             </div>
             <div style="flex:1.2; min-width:280px;">
               <span class="badge" style="display:inline-block; background:var(--secondary-gold); color:#fff; padding:4px 12px; border-radius:20px; font-size:0.8rem; font-weight:700; margin-bottom:12px; text-transform:uppercase;">
@@ -183,13 +359,15 @@
                 </p>
               </div>
 
-              <button class="btn-primary" onclick="addToCart(${p.id}, event)" style="padding:12px 24px; font-size:1rem; cursor:pointer;">+ Masukkan Keranjang</button>
+              <button class="btn-primary" onclick="addToCart(${p.id}, event)" style="padding:12px 24px; font-size:1rem; cursor:pointer; background:var(--jet-black); color:#fff; border:none; border-radius:6px; font-weight:700; width:100%;">+ Masukkan Keranjang</button>
             </div>
           </div>
         `;
       } else if (container) {
         container.innerHTML = `<p style="text-align:center; padding:50px 0; color:var(--text-muted);">Produk tidak ditemukan.</p>`;
       }
+      
+      updateCartUI();
     });
 
     // Handling Audio Autoplay setelah interaksi pengguna
