@@ -1,6 +1,3 @@
-<!-- =========================================================
-     FILENAME: detail.html
-     ========================================================= -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -42,7 +39,8 @@
     </nav>
   </header>
 
-  <audio id="bgAudio" loop src="bgm.mp3"></audio> <!-- <--- INPUT FILE AUDIO BGM -->
+  <!-- Audio Background -->
+  <audio id="bgAudio" loop src="Cynthia Theme Piano.mp3"></audio>
   <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
 
   <div class="container" style="min-height: 70vh;">
@@ -122,12 +120,12 @@
       if (container && p) {
         container.innerHTML = `
           <div style="display:flex; gap:30px; background:var(--card-bg); padding:30px; border-radius:var(--radius-lg); align-items:center; flex-wrap:wrap; border:1px solid #e2ded4;">
-            <img src="${p.img}" style="width:100%; max-width:380px; height:380px; object-fit:cover; border-radius:var(--radius-md);" alt="${p.name}"> <!-- <--- INPUT FOTO DETAIL PRODUK -->
+            <img src="${p.img}" style="width:100%; max-width:380px; height:380px; object-fit:cover; border-radius:var(--radius-md);" alt="${p.name}">
             <div style="flex:1;">
               <h1 style="margin-bottom:10px;">${p.name}</h1>
               <h2 style="color:#c92a2a; font-size:1.8rem; margin-bottom:15px;">Rp ${p.price.toLocaleString('id-ID')}</h2>
               <p style="color:var(--text-muted); margin-bottom:20px; line-height:1.6;">
-                Booster Box Segel Factory Sealed (Pabrikan). Berisi 30 Booster Pack siap unboxing dengan jaminan kartu Hit/Secret Rare original sesuai standar <i>The Collector Protocol</i>.
+                ${p.desc || 'Booster Box Segel Factory Sealed (Pabrikan). Berisi Booster Pack siap unboxing dengan jaminan kartu Hit/Secret Rare original sesuai standar <i>The Collector Protocol</i>.'}
               </p>
               <button class="btn-primary" onclick="addToCart(${p.id})">+ Masukkan Keranjang</button>
             </div>
@@ -135,6 +133,26 @@
         `;
       }
     });
+
+    // Handling Autoplay Audio
+    document.addEventListener('click', function() {
+      const audio = document.getElementById('bgAudio');
+      if (audio && audio.paused) {
+        audio.play().catch(error => console.log("Autoplay diblokir browser:", error));
+      }
+    }, { once: true });
+
+    function toggleAudio() {
+      const audio = document.getElementById('bgAudio');
+      const btn = document.getElementById('audioBtn');
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = '🔊';
+      } else {
+        audio.pause();
+        btn.textContent = '🔇';
+      }
+    }
   </script>
 </body>
 </html>
