@@ -1,0 +1,126 @@
+<!-- =========================================================
+     FILENAME: checkout.html
+     ========================================================= -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokebooster.tcg — Checkout</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Efek Item Jatuh -->
+  <div class="falling-layer">
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+  </div>
+
+  <header>
+    <div class="logo-container">
+      <div class="ultraball-icon"></div>
+      <div class="brand-title">POKEBOOSTER.TCG</div>
+    </div>
+  </header>
+
+  <audio id="bgAudio" loop src="bgm.mp3"></audio> <!-- <--- INPUT FILE AUDIO BGM -->
+  <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
+
+  <div class="centered-wrapper">
+    <div class="form-box">
+      <a href="produk.html" class="btn-back" style="margin-bottom:15px;">⬅️ Back</a>
+      <h2 style="text-align:center; margin-bottom:20px;">Form Pengiriman & Pembayaran</h2>
+      <form id="checkoutForm">
+        <div class="form-group">
+          <label>Nomor WhatsApp</label>
+          <input type="tel" id="wa" placeholder="08123456789" required>
+        </div>
+        <div class="form-group">
+          <label>Email (Untuk Invoice & Resi)</label>
+          <input type="email" id="email" placeholder="nama@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Alamat Lengkap Pengiriman</label>
+          <input type="text" id="alamat" placeholder="Jl. Raya No. 123..." required>
+        </div>
+        <div class="form-group">
+          <label>Metode Pembayaran</label>
+          <select id="payment">
+            <option value="qris">QRIS (Otomatis)</option>
+            <option value="bank">Transfer Bank BSI / BCA</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%;">Konfirmasi & Bayar</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="produk.html?lang=id">Booster Box Indonesia</a></li>
+          <li><a href="produk.html?lang=en">Booster Box Inggris</a></li>
+          <li><a href="produk.html?lang=jp">Booster Box Jepang</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Category</h4>
+        <ul>
+          <li>Scarlet & Violet Series</li>
+          <li>Sword & Shield Series</li>
+          <li>High Class Pack</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company Info</h4>
+        <ul>
+          <li><a href="about.html">About Pokebooster</a></li>
+          <li><a href="about.html">The Collector Protocol</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <ul>
+          <li>Instagram: @pokebooster.tcg</li>
+          <li>WhatsApp Support</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Pokebooster.tcg — All Rights Reserved.
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('checkoutForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const today = new Date();
+      const etaDate = new Date(today);
+      etaDate.setDate(today.getDate() + 2);
+
+      const newOrder = {
+        id: 'INV-' + Math.floor(Math.random() * 899999 + 100000),
+        date: today.toLocaleDateString('id-ID'),
+        eta: etaDate.toLocaleDateString('id-ID'),
+        email: document.getElementById('email').value,
+        status: 'PROSES PENGANTARAN (Estimasi 2 Hari)'
+      };
+
+      let history = JSON.parse(localStorage.getItem('pbHistory')) || [];
+      history.unshift(newOrder);
+      localStorage.setItem('pbHistory', JSON.stringify(history));
+
+      localStorage.removeItem('pbCart');
+      window.location.href = 'transaksi.html';
+    });
+  </script>
+</body>
+</html>

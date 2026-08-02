@@ -1,0 +1,151 @@
+<!-- =========================================================
+     FILENAME: riwayat.html
+     ========================================================= -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokebooster.tcg — History</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Efek Item Jatuh -->
+  <div class="falling-layer">
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+  </div>
+
+  <header>
+    <div class="logo-container">
+      <div class="ultraball-icon"></div>
+      <div class="brand-title">POKEBOOSTER.TCG</div>
+    </div>
+    
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+
+    <nav id="mainNav">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="produk.html">Catalog</a></li>
+        <li><a href="riwayat.html" class="active">History</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="profil.html">Profile</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <audio id="bgAudio" loop src="bgm.mp3"></audio> <!-- <--- INPUT FILE AUDIO BGM -->
+  <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
+
+  <div class="container" style="min-height: 70vh;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+      <h2 class="section-title" style="margin-bottom:0;">Transaction History</h2>
+      <button class="btn-primary" onclick="clearAllHistory()" style="background:#e63946; color:#fff; font-size:0.85rem; padding:8px 16px;">
+        🗑️ Hapus Semua Riwayat
+      </button>
+    </div>
+
+    <div id="orderHistoryList"></div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="produk.html?lang=id">Booster Box Indonesia</a></li>
+          <li><a href="produk.html?lang=en">Booster Box Inggris</a></li>
+          <li><a href="produk.html?lang=jp">Booster Box Jepang</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Category</h4>
+        <ul>
+          <li>Scarlet & Violet Series</li>
+          <li>Sword & Shield Series</li>
+          <li>High Class Pack</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company Info</h4>
+        <ul>
+          <li><a href="about.html">About Pokebooster</a></li>
+          <li><a href="about.html">The Collector Protocol</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <ul>
+          <li>Instagram: @pokebooster.tcg</li>
+          <li>WhatsApp Support</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Pokebooster.tcg — All Rights Reserved.
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    function renderHistory() {
+      const history = JSON.parse(localStorage.getItem('pbHistory')) || [];
+      const container = document.getElementById('orderHistoryList');
+
+      if (history.length === 0) {
+        container.innerHTML = '<p style="text-align:center; padding: 40px 0;">Belum ada riwayat transaksi.</p>';
+        return;
+      }
+
+      container.innerHTML = '';
+      history.forEach((order, index) => {
+        container.innerHTML += `
+          <div style="background:var(--card-bg); padding:20px; border-radius:var(--radius-lg); margin-bottom:15px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px; border:1px solid #e2ded4;">
+            <div>
+              <h3>No. Invoice: ${order.id}</h3>
+              <p><small>Tanggal Pemesanan: ${order.date} | Est. Tiba: ${order.eta}</small></p>
+              <p style="margin-top:5px;">Status: <strong style="color:${order.status.includes('Selesai') ? 'green' : '#cd9c20'};">${order.status}</strong></p>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center;">
+              <a href="invoice.html?id=${order.id}" class="btn-primary" style="background:var(--jet-black); color:#fff;">Cetak Invoice</a>
+              ${!order.status.includes('Selesai') ? `<button class="btn-primary" onclick="confirmArrival(${index})">Pesanan Sudah Sampai</button>` : ''}
+              <button onclick="deleteSingleHistory(${index})" style="background:none; border:none; color:#e63946; cursor:pointer; font-size:1.2rem;" title="Hapus Item Ini">🗑️</button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function confirmArrival(index) {
+      alert("Terima kasih! Pesanan Anda telah diselesaikan.");
+      let history = JSON.parse(localStorage.getItem('pbHistory')) || [];
+      history[index].status = "Pesanan Selesai / Diterima";
+      localStorage.setItem('pbHistory', JSON.stringify(history));
+      renderHistory();
+    }
+
+    function deleteSingleHistory(index) {
+      if (confirm("Apakah Anda yakin ingin menghapus item riwayat ini?")) {
+        let history = JSON.parse(localStorage.getItem('pbHistory')) || [];
+        history.splice(index, 1);
+        localStorage.setItem('pbHistory', JSON.stringify(history));
+        renderHistory();
+      }
+    }
+
+    function clearAllHistory() {
+      if (confirm("Apakah Anda yakin ingin menghapus SELURUH riwayat transaksi?")) {
+        localStorage.removeItem('pbHistory');
+        renderHistory();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', renderHistory);
+  </script>
+</body>
+</html>

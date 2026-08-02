@@ -1,0 +1,140 @@
+<!-- =========================================================
+     FILENAME: detail.html
+     ========================================================= -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokebooster.tcg — Product Detail</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Efek Item Jatuh -->
+  <div class="falling-layer">
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+  </div>
+
+  <header>
+    <div class="logo-container">
+      <div class="ultraball-icon"></div>
+      <div class="brand-title">POKEBOOSTER.TCG</div>
+    </div>
+
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+
+    <nav id="mainNav">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="produk.html">Catalog</a></li>
+        <li><a href="riwayat.html">History</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="profil.html">Profile</a></li>
+      </ul>
+      <button class="cart-trigger" onclick="toggleCartDrawer(true)">
+        🛒 <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+    </nav>
+  </header>
+
+  <audio id="bgAudio" loop src="bgm.mp3"></audio> <!-- <--- INPUT FILE AUDIO BGM -->
+  <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
+
+  <div class="container" style="min-height: 70vh;">
+    <a href="produk.html" class="btn-back" style="margin-bottom:20px;">⬅️ Back</a>
+
+    <div id="detailContainer"></div>
+  </div>
+
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="drawer-header">
+      <h3>Shopping Cart</h3>
+      <button onclick="toggleCartDrawer(false)" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    
+    <div class="coupon-checkbox-container">
+      <label class="coupon-label">
+        <input type="checkbox" id="discountCheckbox" onchange="toggleDiscount(this.checked)">
+        <span>🎟️ Gunakan Kupon Diskon 10%</span>
+      </label>
+    </div>
+
+    <div class="drawer-footer">
+      <div class="total-price" style="display:flex; justify-content:space-between; font-weight:800; margin-bottom:15px;">
+        <span>Total:</span><span id="cartTotal">Rp 0</span>
+      </div>
+      <a href="checkout.html" class="btn-primary" style="display:block; text-align:center;">Proceed to Checkout</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="produk.html?lang=id">Booster Box Indonesia</a></li>
+          <li><a href="produk.html?lang=en">Booster Box Inggris</a></li>
+          <li><a href="produk.html?lang=jp">Booster Box Jepang</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Category</h4>
+        <ul>
+          <li>Scarlet & Violet Series</li>
+          <li>Sword & Shield Series</li>
+          <li>High Class Pack</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company Info</h4>
+        <ul>
+          <li><a href="about.html">About Pokebooster</a></li>
+          <li><a href="about.html">The Collector Protocol</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <ul>
+          <li>Instagram: @pokebooster.tcg</li>
+          <li>WhatsApp Support</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Pokebooster.tcg — All Rights Reserved.
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const id = parseInt(params.get('id')) || 1;
+      const p = products.find(item => item.id === id);
+
+      const container = document.getElementById('detailContainer');
+      if (container && p) {
+        container.innerHTML = `
+          <div style="display:flex; gap:30px; background:var(--card-bg); padding:30px; border-radius:var(--radius-lg); align-items:center; flex-wrap:wrap; border:1px solid #e2ded4;">
+            <img src="${p.img}" style="width:100%; max-width:380px; height:380px; object-fit:cover; border-radius:var(--radius-md);" alt="${p.name}"> <!-- <--- INPUT FOTO DETAIL PRODUK -->
+            <div style="flex:1;">
+              <h1 style="margin-bottom:10px;">${p.name}</h1>
+              <h2 style="color:#c92a2a; font-size:1.8rem; margin-bottom:15px;">Rp ${p.price.toLocaleString('id-ID')}</h2>
+              <p style="color:var(--text-muted); margin-bottom:20px; line-height:1.6;">
+                Booster Box Segel Factory Sealed (Pabrikan). Berisi 30 Booster Pack siap unboxing dengan jaminan kartu Hit/Secret Rare original sesuai standar <i>The Collector Protocol</i>.
+              </p>
+              <button class="btn-primary" onclick="addToCart(${p.id})">+ Masukkan Keranjang</button>
+            </div>
+          </div>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>

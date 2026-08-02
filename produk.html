@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokebooster.tcg — Catalog</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Efek Item Jatuh -->
+  <div class="falling-layer">
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+  </div>
+
+  <header>
+    <div class="logo-container">
+      <div class="ultraball-icon"></div>
+      <div class="brand-title">POKEBOOSTER.TCG</div>
+    </div>
+    
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+
+    <nav id="mainNav">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="produk.html" class="active">Catalog</a></li>
+        <li><a href="riwayat.html">History</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="profil.html">Profile</a></li>
+      </ul>
+      <button class="cart-trigger" onclick="toggleCartDrawer(true)">
+        🛒 <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+    </nav>
+  </header>
+
+  <audio id="bgAudio" loop src="bgm.mp3"></audio> <!-- <--- input file audio -->
+  <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
+
+  <!-- Sidebar Filter Melayang Kiri -->
+  <aside class="sidebar-floating">
+    <button class="filter-btn active" id="btn-all" onclick="filterLanguage('all', this)">ALL</button>
+    <button class="filter-btn" id="btn-id" onclick="filterLanguage('id', this)">ID</button>
+    <button class="filter-btn" id="btn-en" onclick="filterLanguage('en', this)">EN</button>
+    <button class="filter-btn" id="btn-jp" onclick="filterLanguage('jp', this)">JP</button>
+  </aside>
+
+  <div class="container" style="margin-left: 50px;">
+    <h2 class="section-title">Booster Box Catalog</h2>
+    
+    <div class="search-container">
+      <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search booster box name..." onkeyup="filterSearch()">
+    </div>
+
+    <div class="product-grid" id="catalogGrid"></div>
+  </div>
+
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="drawer-header">
+      <h3>Shopping Cart</h3>
+      <button onclick="toggleCartDrawer(false)" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    
+    <div class="coupon-checkbox-container">
+      <label class="coupon-label">
+        <input type="checkbox" id="discountCheckbox" onchange="toggleDiscount(this.checked)">
+        <span>🎟️ Gunakan Kupon Diskon 10%</span>
+      </label>
+    </div>
+
+    <div class="drawer-footer">
+      <div class="total-price" style="display:flex; justify-content:space-between; font-weight:800; margin-bottom:15px;">
+        <span>Total:</span><span id="cartTotal">Rp 0</span>
+      </div>
+      <a href="checkout.html" class="btn-primary" style="display:block; text-align:center;">Proceed to Checkout</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul><li>Booster Box Seri ID</li><li>Booster Box Seri EN</li><li>Booster Box Seri JP</li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company Info</h4>
+        <ul><li><a href="about.html" style="color:inherit;">About Us</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Pokebooster.tcg — All Rights Reserved.</div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    let currentFilter = 'all';
+
+    function renderCatalog(items) {
+      const grid = document.getElementById('catalogGrid');
+      if(!grid) return;
+      grid.innerHTML = '';
+      items.forEach(p => {
+        grid.innerHTML += `
+          <div class="product-card" onclick="goToDetail(${p.id})">
+            <div class="ultraball-icon card-ultraball-badge"></div>
+            <img src="${p.img}" class="product-img" alt="${p.name}"> <!-- <--- input foto produk -->
+            <div class="card-amor-info">
+              <div class="card-amor-title">${p.name}</div>
+              <div class="card-amor-price">Rp ${p.price.toLocaleString('id-ID')}</div>
+            </div>
+            <button class="btn-add-cart" onclick="addToCart(${p.id}, event)">+ Keranjang</button>
+          </div>
+        `;
+      });
+    }
+
+    function filterLanguage(lang, btn) {
+      currentFilter = lang;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      if(btn) btn.classList.add('active');
+      filterSearch();
+    }
+
+    function filterSearch() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      let list = currentFilter === 'all' ? products : products.filter(p => p.lang === currentFilter);
+      list = list.filter(p => p.name.toLowerCase().includes(query));
+      renderCatalog(list);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Cek parameter dari URL jika diklik dari tombol Home Sub-Menu
+      const urlParams = new URLSearchParams(window.location.search);
+      const langParam = urlParams.get('lang');
+      if (langParam) {
+        currentFilter = langParam;
+        const targetBtn = document.getElementById(`btn-${langParam}`);
+        if (targetBtn) {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          targetBtn.classList.add('active');
+        }
+      }
+      filterSearch();
+    });
+  </script>
+</body>
+</html>

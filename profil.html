@@ -1,0 +1,98 @@
+<!-- =========================================================
+     FILENAME: profil.html
+     ========================================================= -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokebooster.tcg — Profile</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Efek Item Jatuh -->
+  <div class="falling-layer">
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+  </div>
+
+  <header>
+    <div class="logo-container">
+      <div class="ultraball-icon"></div>
+      <div class="brand-title">POKEBOOSTER.TCG</div>
+    </div>
+
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+
+    <nav id="mainNav">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="produk.html">Catalog</a></li>
+        <li><a href="riwayat.html">History</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="profil.html" class="active">Profile</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <audio id="bgAudio" loop src="bgm.mp3"></audio> <!-- <--- INPUT FILE AUDIO BGM -->
+  <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
+
+  <div class="container" style="min-height: 70vh;">
+    <h2 class="section-title">BIODATA ANDA</h2>
+    <div class="profile-card">
+      <img src="profil-farrel.jpg" class="profile-img" alt="Foto Farrel Daffa Putra Moris"> <!-- <--- INPUT FOTO PROFIL (Simpan profil-farrel.jpg di folder root) -->
+      <div class="profile-info">
+        <p><strong>Nama Lengkap:</strong> Farrel Daffa Putra Moris</p>
+        <p><strong>NIM:</strong> 10525053</p>
+        <p><strong>Kelas:</strong> IS-2</p>
+        <p><strong>Email:</strong> farreldaffa2302@gmail.com</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="produk.html?lang=id">Booster Box Indonesia</a></li>
+          <li><a href="produk.html?lang=en">Booster Box Inggris</a></li>
+          <li><a href="produk.html?lang=jp">Booster Box Jepang</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Category</h4>
+        <ul>
+          <li>Scarlet & Violet Series</li>
+          <li>Sword & Shield Series</li>
+          <li>High Class Pack</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company Info</h4>
+        <ul>
+          <li><a href="about.html">About Pokebooster</a></li>
+          <li><a href="about.html">The Collector Protocol</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <ul>
+          <li>Instagram: @pokebooster.tcg</li>
+          <li>WhatsApp Support</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Pokebooster.tcg — All Rights Reserved.
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

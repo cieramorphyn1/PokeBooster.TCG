@@ -1,0 +1,86 @@
+<!-- =========================================================
+     FILENAME: transaksi.html
+     ========================================================= -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokebooster.tcg — Payment Success</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Efek Item Jatuh -->
+  <div class="falling-layer">
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+  </div>
+
+  <header>
+    <div class="logo-container">
+      <div class="ultraball-icon"></div>
+      <div class="brand-title">POKEBOOSTER.TCG</div>
+    </div>
+  </header>
+
+  <audio id="bgAudio" loop src="bgm.mp3"></audio> <!-- <--- INPUT FILE AUDIO BGM -->
+  <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
+
+  <div class="centered-wrapper">
+    <div class="form-box" style="text-align:center;">
+      <h2 style="color:#2b8a3e; margin-bottom:10px;">Pembayaran Berhasil!</h2>
+      <p style="color:var(--text-muted); margin-bottom:20px;">
+        Sistem telah memverifikasi pembayaran Anda. Pesanan langsung diproses untuk dikirim sesuai standar <i>The Collector Protocol</i>.
+      </p>
+      <div style="background:var(--accent-cream); padding:15px; border-radius:8px; margin-bottom:20px;">
+        <p>🚚 <strong>Estimasi Tiba:</strong> 2 Hari Kerja</p>
+      </div>
+      <a href="riwayat.html" class="btn-primary" style="display:block;">Lihat Riwayat Pesanan</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="produk.html?lang=id">Booster Box Indonesia</a></li>
+          <li><a href="produk.html?lang=en">Booster Box Inggris</a></li>
+          <li><a href="produk.html?lang=jp">Booster Box Jepang</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Category</h4>
+        <ul>
+          <li>Scarlet & Violet Series</li>
+          <li>Sword & Shield Series</li>
+          <li>High Class Pack</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company Info</h4>
+        <ul>
+          <li><a href="about.html">About Pokebooster</a></li>
+          <li><a href="about.html">The Collector Protocol</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <ul>
+          <li>Instagram: @pokebooster.tcg</li>
+          <li>WhatsApp Support</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Pokebooster.tcg — All Rights Reserved.
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

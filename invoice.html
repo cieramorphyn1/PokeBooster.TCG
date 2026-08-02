@@ -1,0 +1,113 @@
+<!-- =========================================================
+     FILENAME: invoice.html
+     ========================================================= -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokebooster.tcg — Print Invoice</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .invoice-card {
+      background: var(--card-bg);
+      border: 2px solid var(--jet-black);
+      border-radius: 12px;
+      padding: 30px;
+      max-width: 550px;
+      margin: 20px auto 40px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+    }
+    .inv-header { text-align: center; border-bottom: 2px solid var(--primary-gold); padding-bottom: 15px; margin-bottom: 20px; }
+    .btn-print { background: var(--jet-black); color: var(--primary-gold); border: none; padding: 12px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <!-- Efek Item Jatuh -->
+  <div class="falling-layer">
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+    <div class="falling-item"></div>
+  </div>
+
+  <audio id="bgAudio" loop src="bgm.mp3"></audio> <!-- <--- INPUT FILE AUDIO BGM -->
+  <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
+
+  <div class="container" style="min-height: 75vh;">
+    <div style="max-width: 550px; margin: 0 auto 5px; text-align: left;">
+      <a href="riwayat.html" class="btn-back">⬅️ Back</a>
+    </div>
+
+    <div class="invoice-card">
+      <div class="inv-header">
+        <h2>INVOICE PEMBELIAN</h2>
+        <p style="color:var(--secondary-gold); font-weight:bold;">POKEBOOSTER.TCG</p>
+      </div>
+      <p id="invId">No. Invoice: -</p>
+      <p id="invEmail">Email: -</p>
+      <p id="invDate">Tanggal Order: -</p>
+      <p id="invEta" style="color:green; font-weight:bold;">Perkiraan Tanggal Tiba: -</p>
+      <p>Status Pembayaran: <strong style="color:green;">LUNAS</strong></p>
+      <p>Pengiriman: Kurir Ekspres (Estimasi 2 Hari)</p>
+      <button class="btn-print" onclick="window.print()">Cetak Resi / PDF</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="produk.html?lang=id">Booster Box Indonesia</a></li>
+          <li><a href="produk.html?lang=en">Booster Box Inggris</a></li>
+          <li><a href="produk.html?lang=jp">Booster Box Jepang</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Category</h4>
+        <ul>
+          <li>Scarlet & Violet Series</li>
+          <li>Sword & Shield Series</li>
+          <li>High Class Pack</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company Info</h4>
+        <ul>
+          <li><a href="about.html">About Pokebooster</a></li>
+          <li><a href="about.html">The Collector Protocol</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <ul>
+          <li>Instagram: @pokebooster.tcg</li>
+          <li>WhatsApp Support</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Pokebooster.tcg — All Rights Reserved.
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const history = JSON.parse(localStorage.getItem('pbHistory')) || [];
+    const order = history.find(o => o.id === id) || history[0];
+
+    if (order) {
+      document.getElementById('invId').textContent = 'No. Invoice: ' + order.id;
+      document.getElementById('invEmail').textContent = 'Email Customer: ' + order.email;
+      document.getElementById('invDate').textContent = 'Tanggal Order: ' + order.date;
+      document.getElementById('invEta').textContent = 'Perkiraan Tanggal Tiba: ' + order.eta;
+    }
+  </script>
+</body>
+</html>
