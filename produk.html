@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pokebooster.tcg — Catalog</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -58,7 +59,7 @@
       <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search booster box name..." onkeyup="filterSearch()">
     </div>
 
-    <div class="product-grid" id="catalogGrid"></div>
+    <div class="product-grid" id="productGrid"></div>
   </div>
 
   <!-- Cart Drawer -->
@@ -84,7 +85,7 @@
     </div>
   </div>
 
-  <!-- Footer Rapi & Seragam -->
+  <!-- Footer -->
   <footer>
     <div class="footer-content">
       <div class="footer-col">
@@ -127,41 +128,22 @@
   <script>
     let currentFilter = 'all';
 
-    function renderCatalog(items) {
-      const grid = document.getElementById('catalogGrid');
-      if(!grid) return;
-      grid.innerHTML = '';
-      items.forEach(p => {
-        grid.innerHTML += `
-          <div class="product-card" onclick="goToDetail(${p.id})">
-            <div class="ultraball-icon card-ultraball-badge"></div>
-            <img src="${p.img}" class="product-img" alt="${p.name}">
-            <div class="card-amor-info">
-              <div class="card-amor-title">${p.name}</div>
-              <div class="card-amor-price">Rp ${p.price.toLocaleString('id-ID')}</div>
-            </div>
-            <button class="btn-add-cart" onclick="addToCart(${p.id}, event)">+ Keranjang</button>
-          </div>
-        `;
-      });
-    }
-
     function filterLanguage(lang, btn) {
       currentFilter = lang;
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      if(btn) btn.classList.add('active');
+      if (btn) btn.classList.add('active');
       filterSearch();
     }
 
     function filterSearch() {
-      const query = document.getElementById('searchInput').value.toLowerCase();
-      let list = currentFilter === 'all' ? products : products.filter(p => p.lang === currentFilter);
-      list = list.filter(p => p.name.toLowerCase().includes(query));
-      renderCatalog(list);
+      const query = document.getElementById('searchInput') ? document.getElementById('searchInput').value : '';
+      if (typeof renderProducts === 'function') {
+        renderProducts(currentFilter, query);
+      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      // Cek parameter dari URL jika diklik dari tombol Home Sub-Menu
+      // Pembacaan Parameter URL dari Sub-Menu Home/Footer
       const urlParams = new URLSearchParams(window.location.search);
       const langParam = urlParams.get('lang');
       if (langParam) {
@@ -174,26 +156,6 @@
       }
       filterSearch();
     });
-
-    // Handling Autoplay Audio
-    document.addEventListener('click', function() {
-      const audio = document.getElementById('bgAudio');
-      if (audio && audio.paused) {
-        audio.play().catch(error => console.log("Autoplay diblokir browser:", error));
-      }
-    }, { once: true });
-
-    function toggleAudio() {
-      const audio = document.getElementById('bgAudio');
-      const btn = document.getElementById('audioBtn');
-      if (audio.paused) {
-        audio.play();
-        btn.textContent = '🔊';
-      } else {
-        audio.pause();
-        btn.textContent = '🔇';
-      }
-    }
   </script>
 </body>
 </html>
