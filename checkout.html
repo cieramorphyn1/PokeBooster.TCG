@@ -49,6 +49,55 @@
         transform: translateY(0) rotate(360deg);
       }
     }
+
+    /* Perbaikan Layout Form Checkout agar Tidak Bertumpuk/Berantakan */
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .centered-wrapper {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-box {
+      width: 100%;
+      max-width: 500px;
+      background: var(--card-bg, #1a1a1a);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .form-group input, 
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #2a2a2a;
+      color: #fff;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
   </style>
 </head>
 <body>
@@ -72,9 +121,9 @@
   <audio id="bgAudio" loop src="Cynthia Theme Piano.mp3"></audio>
   <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
 
-  <div class="centered-wrapper" style="position: relative; z-index: 1;">
+  <div class="centered-wrapper">
     <div class="form-box">
-      <a href="produk.html" class="btn-back" style="margin-bottom:15px;">⬅️ Back</a>
+      <a href="produk.html" class="btn-back" style="display:inline-block; margin-bottom:15px; text-decoration:none;">⬅️ Back</a>
       <h2 style="text-align:center; margin-bottom:20px;">Form Pengiriman & Pembayaran</h2>
       <form id="checkoutForm">
         <div class="form-group">
@@ -96,7 +145,7 @@
             <option value="bank">Transfer Bank</option>
           </select>
         </div>
-        <button type="submit" class="btn-primary" style="width:100%;">Konfirmasi & Bayar</button>
+        <button type="submit" class="btn-primary" style="width:100%; margin-top:10px;">Konfirmasi & Bayar</button>
       </form>
     </div>
   </div>
@@ -182,6 +231,9 @@
         btn.textContent = '🔇';
       }
     }
+  </script>
+</body>
+</html>
   </script>
 </body>
 </html>
