@@ -4,15 +4,15 @@
 
 // Database Produk Pokebooster.tcg
 const products = [
-  { id: 1, name: "Booster Box Topeng Kerusakan", lang: "id", price: 1050000, img: "prod-1.jpg" }, /* <--- INPUT GAMBAR PRODUK 1 LOKAL */
-  { id: 2, name: "Booster Box Kilat Perdana", lang: "id", price: 1100000, img: "prod-2.jpg" },     /* <--- INPUT GAMBAR PRODUK 2 LOKAL */
-  { id: 3, name: "Booster Box Takdir Gemerlap", lang: "id", price: 1250000, img: "prod-3.jpg" },   /* <--- INPUT GAMBAR PRODUK 3 LOKAL */
-  { id: 4, name: "Booster Box Scarlet & Violet Base", lang: "en", price: 2100000, img: "prod-4.jpg" }, /* <--- INPUT GAMBAR PRODUK 4 LOKAL */
-  { id: 5, name: "Booster Box Paldea Evolved", lang: "en", price: 2300000, img: "prod-5.jpg" },    /* <--- INPUT GAMBAR PRODUK 5 LOKAL */
-  { id: 6, name: "Booster Box Obsidian Flames", lang: "en", price: 2450000, img: "prod-6.jpg" },   /* <--- INPUT GAMBAR PRODUK 6 LOKAL */
-  { id: 7, name: "Booster Box Shiny Treasure ex", lang: "jp", price: 1150000, img: "prod-7.jpg" },  /* <--- INPUT GAMBAR PRODUK 7 LOKAL */
-  { id: 8, name: "Booster Box Ruler of the Black Flame", lang: "jp", price: 1300000, img: "prod-8.jpg" }, /* <--- INPUT GAMBAR PRODUK 8 LOKAL */
-  { id: 9, name: "Booster Box Clay Burst", lang: "jp", price: 1850000, img: "prod-9.jpg" }         /* <--- INPUT GAMBAR PRODUK 9 LOKAL */
+  { id: 1, name: "Booster Box Topeng Kerusakan", lang: "id", price: 1050000, img: "EVOLVINGSKIES.jpg" }, 
+  { id: 2, name: "Booster Box Kilat Perdana", lang: "id", price: 1100000, img: "prod-2.jpg" },    
+  { id: 3, name: "Booster Box Takdir Gemerlap", lang: "id", price: 1250000, img: "prod-3.jpg" },  
+  { id: 4, name: "Booster Box Scarlet & Violet Base", lang: "en", price: 2100000, img: "prod-4.jpg" }, 
+  { id: 5, name: "Booster Box Paldea Evolved", lang: "en", price: 2300000, img: "prod-5.jpg" },    
+  { id: 6, name: "Booster Box Obsidian Flames", lang: "en", price: 2450000, img: "prod-6.jpg" },   
+  { id: 7, name: "Booster Box Shiny Treasure ex", lang: "jp", price: 1150000, img: "prod-7.jpg" },  
+  { id: 8, name: "Booster Box Ruler of the Black Flame", lang: "jp", price: 1300000, img: "prod-8.jpg" }, 
+  { id: 9, name: "Booster Box Clay Burst", lang: "jp", price: 1850000, img: "prod-9.jpg" }         
 ];
 
 let cart = JSON.parse(localStorage.getItem('pbCart')) || [];
