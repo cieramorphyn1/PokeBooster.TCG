@@ -1,8 +1,3 @@
-/* =========================================================
-   FILENAME: script.js
-   ========================================================= */
-
-// Database Produk Pokebooster.tcg
 const products = [
   { id: 1, name: "Booster Box Topeng Kerusakan", lang: "id", price: 1050000, img: "EVOLVINGSKIES.jpg" }, 
   { id: 2, name: "Booster Box Kilat Perdana", lang: "id", price: 1100000, img: "prod-2.jpg" },    
@@ -25,7 +20,7 @@ function saveCart() {
 }
 
 function addToCart(id, event) {
-  if(event) event.stopPropagation();
+  if (event) event.stopPropagation();
   const item = products.find(p => p.id === id);
   const existing = cart.find(c => c.id === id);
   if (existing) existing.qty += 1;
@@ -106,7 +101,7 @@ function renderCartDrawer() {
   }
 }
 
-/* Audio persistence */
+/* Audio persistence handling across pages */
 function initAudioState() {
   const audio = document.getElementById('bgAudio');
   const btn = document.getElementById('audioBtn');
@@ -116,13 +111,13 @@ function initAudioState() {
   
   if (audioState === 'playing') {
     audio.play().then(() => {
-      if(btn) btn.textContent = '🔊';
+      if (btn) btn.textContent = '🔊';
     }).catch(() => {
-      if(btn) btn.textContent = '🔇';
+      if (btn) btn.textContent = '🔇';
     });
   } else {
     audio.pause();
-    if(btn) btn.textContent = '🔇';
+    if (btn) btn.textContent = '🔇';
   }
 }
 
@@ -134,14 +129,14 @@ function toggleAudio() {
   if (audio.paused) {
     audio.play().then(() => {
       localStorage.setItem('pbAudioStatus', 'playing');
-      if(btn) btn.textContent = '🔊';
+      if (btn) btn.textContent = '🔊';
     }).catch(err => {
       console.log("Audio playback blocked:", err);
     });
   } else {
     audio.pause();
     localStorage.setItem('pbAudioStatus', 'paused');
-    if(btn) btn.textContent = '🔇';
+    if (btn) btn.textContent = '🔇';
   }
 }
 
