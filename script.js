@@ -1,4 +1,3 @@
-  // Pemetaan 9 Produk Pokebooster.tcg (Data Resmi 2026)
 const products = [
   // --- SERI INGGRIS (EN) ---
   {
@@ -11,19 +10,19 @@ const products = [
   },
   {
     id: 2,
-    name: "Pokémon TCG XY: Roaring Skies / Mega Evolution Series Booster Box (EN)",
+    name: "Pokémon TCG XY: Mega Evolution Series Booster Box (EN)",
     lang: "en",
     price: 18500000,
     img: "MEGAEVO.png",
-    description: "Seri klasik era XY yang menampilkan kebangkitan Mega Evolution, termasuk Mega Rayquaza EX dan Mega Charizard. Pilihan wajib bagi kolektor retro & penggemar mekanik Mega."
+    description: "Seri spesial era XY Mega Evolution yang menampilkan ikon utama Mega Gardevoir dan Mega Lucario. Pilihan wajib bagi kolektor retro & penggemar mekanik Mega."
   },
   {
     id: 3,
-    name: "Pokémon TCG Sword & Shield: Darkness Ablaze / Pitch Black (EN)",
+    name: "Pokémon TCG Sword & Shield: Pitch Black Booster Box (EN)",
     lang: "en",
     price: 3800000,
     img: "PITCHBLACK.png",
-    description: "Seri populer era Sword & Shield yang memuat kartu incaran utama Charizard VMAX beserta deretan Pokémon tipe Dark & Fire langka lainnya."
+    description: "Seri populer era Sword & Shield yang memuat kartu incaran utama Mega Darkrai beserta deretan Pokémon tipe Dark & Shadow langka lainnya."
   },
 
   // --- SERI INDONESIA (ID) ---
@@ -45,21 +44,21 @@ const products = [
   },
   {
     id: 6,
-    name: "Pokémon TCG Indonesia: Seri Topeng Kerusakan / Maid & Master Sub-Set (ID)",
+    name: "Pokémon TCG Indonesia: Seri Evolusi Mega (ID)",
     lang: "id",
     price: 950000,
     img: "MAID.png",
-    description: "Rilisan resmi Bahasa Indonesia yang berisi dukungan kartu Supporter Full Art langka serta Pokémon ex meta kompetitif saat ini."
+    description: "Rilisan resmi Bahasa Indonesia edisi Mega Evolution yang menampilkan Mega Gardevoir dan Mega Lucario serta dukungan kartu Supporter Full Art langka."
   },
 
   // --- SERI JEPANG (JP) ---
   {
     id: 7,
-    name: "Pokémon TCG Japan: High Class Pack Mega Dream EX / VMAX Climax (JP)",
+    name: "Pokémon TCG Japan: High Class Pack Mega Dream EX (JP)",
     lang: "jp",
     price: 2800000,
     img: "MEGA DREAM EX.png",
-    description: "High Class Pack premium Jepang dengan jaminan Guaranteed Foil di setiap pack, kartu Character Rare (CHR/CSR), dan kualitas cetakan khas Jepang yang sangat halus."
+    description: "High Class Pack premium Jepang dengan jaminan Guaranteed Foil di setiap pack, kartu EX/SAR pilihan, dan kualitas cetakan khas Jepang yang sangat halus."
   },
   {
     id: 8,
@@ -75,7 +74,7 @@ const products = [
     lang: "jp",
     price: 1450000,
     img: "SCARLET EX.png",
-    description: "Seri pembuka era Scarlet & Violet Jepang yang memperkenalkan mekanik Terastalization, Koraidon ex SAR, dan Miradon/Gardevoir ex Special Art Rare."
+    description: "Seri pembuka era Scarlet & Violet Jepang yang memperkenalkan mekanik Terastalization, Koraidon ex SAR, dan Miraidon/Gardevoir ex Special Art Rare."
   }
 ];
 
@@ -220,7 +219,7 @@ function renderProductDetail() {
   detailContainer.innerHTML = `
     <div class="product-detail-layout" style="display: flex; gap: 40px; flex-wrap: wrap; background: var(--card-bg); padding: 30px; border-radius: var(--radius-lg); border: 1px solid #e2ded4; box-shadow: var(--shadow-soft);">
       <div style="flex: 1; min-width: 280px; text-align: center;">
-        <img src="${product.img}" alt="${product.name}" style="width: 100%; max-width: 380px; border-radius: 12px; border: 1px solid #ddd;" onerror="this.src='https://via.placeholder.com/380x380?text=Pokebooster'">
+        <img src="${product.img}" alt="${product.name}" style="width: 100%; max-width: 380px; aspect-ratio: 1/1; object-fit: contain; border-radius: 12px; border: 1px solid #ddd;" onerror="this.src='https://via.placeholder.com/380x380?text=Pokebooster'">
       </div>
       <div style="flex: 1.2; min-width: 280px; display: flex; flex-direction: column; justify-content: center;">
         <span class="badge" style="align-self: flex-start; background: var(--secondary-gold); color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 12px; text-transform: uppercase;">
