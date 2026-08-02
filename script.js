@@ -6,7 +6,7 @@ const products = [
     lang: "en",
     price: 38500000,
     img: "EVOLVINGSKIES.png",
-    description: "Booster box ikonik dari era Sword & Shield. Terkenal dengan hit rate kartu Alternate Art sangat langka seperti Rayquaza VMAX dan 'Moonbreon' (Umbreon VMAX Alt Art). 100% factory sealed original."
+    description: "EVOLVING SKIES. Terkenal dengan hit rate kartu Alternate Art sangat langka seperti Rayquaza VMAX dan 'Moonbreon' (Umbreon VMAX Alt Art). 100% factory sealed original."
   },
   {
     id: 2,
@@ -14,7 +14,7 @@ const products = [
     lang: "en",
     price: 18500000,
     img: "MEGAEVO.png",
-    description: "Seri spesial era XY Mega Evolution yang menampilkan ikon utama Mega Gardevoir dan Mega Lucario. Pilihan wajib bagi kolektor retro & penggemar mekanik Mega."
+    description: "Mega Evolution yang menampilkan ikon utama Mega Gardevoir dan Mega Lucario. Pilihan wajib bagi kolektor retro & penggemar mekanik Mega."
   },
   {
     id: 3,
@@ -22,7 +22,7 @@ const products = [
     lang: "en",
     price: 3800000,
     img: "PITCHBLACK.png",
-    description: "Seri populer era Sword & Shield yang memuat kartu incaran utama Mega Darkrai beserta deretan Pokémon tipe Dark & Shadow langka lainnya."
+    description: "Pitch Black yang memuat kartu incaran utama Mega Darkrai sang pengantar tidur di kegelapan beserta deretan Pokémon tipe Dark & Shadow langka lainnya."
   },
 
   // --- SERI INDONESIA (ID) ---
