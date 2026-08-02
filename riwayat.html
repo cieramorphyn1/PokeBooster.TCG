@@ -5,10 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pokebooster.tcg — History</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Efek Item Jatuh Menggunakan POKEBALL.png */
+    .falling-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .falling-item {
+      position: absolute;
+      top: -50px;
+      width: 45px;
+      height: 45px;
+      background-image: url('POKEBALL.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.85;
+      animation: fallAndFade 6s linear infinite;
+    }
+
+    .falling-item:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 5s; }
+    .falling-item:nth-child(2) { left: 25%; animation-delay: 1.5s; animation-duration: 6s; }
+    .falling-item:nth-child(3) { left: 45%; animation-delay: 0.5s; animation-duration: 4.5s; }
+    .falling-item:nth-child(4) { left: 65%; animation-delay: 2.2s; animation-duration: 5.5s; }
+    .falling-item:nth-child(5) { left: 85%; animation-delay: 1s; animation-duration: 6.5s; }
+
+    @keyframes fallAndFade {
+      0% {
+        top: -60px;
+        opacity: 0.9;
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        top: 100vh;
+        opacity: 0.1;
+        transform: translateY(0) rotate(360deg);
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Efek Item Jatuh -->
+  <!-- Efek Item Jatuh Menggunakan POKEBALL.png -->
   <div class="falling-layer">
     <div class="falling-item"></div>
     <div class="falling-item"></div>
@@ -17,7 +62,7 @@
     <div class="falling-item"></div>
   </div>
 
-  <header>
+  <header style="position: relative; z-index: 100;">
     <div class="logo-container">
       <div class="ultraball-icon"></div>
       <div class="brand-title">POKEBOOSTER.TCG</div>
@@ -40,10 +85,10 @@
   <audio id="bgAudio" loop src="Cynthia Theme Piano.mp3"></audio>
   <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
 
-  <div class="container" style="min-height: 70vh;">
+  <div class="container" style="min-height: 70vh; position: relative; z-index: 1; padding-top: 20px;">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
       <h2 class="section-title" style="margin-bottom:0;">Transaction History</h2>
-      <button class="btn-primary" onclick="clearAllHistory()" style="background:#e63946; color:#fff; font-size:0.85rem; padding:8px 16px;">
+      <button class="btn-primary" onclick="clearAllHistory()" style="background:#e63946; color:#fff; font-size:0.85rem; padding:8px 16px; cursor:pointer;">
         🗑️ Hapus Semua Riwayat
       </button>
     </div>
@@ -52,7 +97,7 @@
   </div>
 
   <!-- Footer Rapi & Seragam -->
-  <footer>
+  <footer style="position: relative; z-index: 10;">
     <div class="footer-content">
       <div class="footer-col">
         <h4>Products</h4>
@@ -96,23 +141,25 @@
       const history = JSON.parse(localStorage.getItem('pbHistory')) || [];
       const container = document.getElementById('orderHistoryList');
 
+      if (!container) return;
+
       if (history.length === 0) {
-        container.innerHTML = '<p style="text-align:center; padding: 40px 0;">Belum ada riwayat transaksi.</p>';
+        container.innerHTML = '<p style="text-align:center; padding: 40px 0; color:var(--text-muted);">Belum ada riwayat transaksi.</p>';
         return;
       }
 
       container.innerHTML = '';
       history.forEach((order, index) => {
         container.innerHTML += `
-          <div style="background:var(--card-bg); padding:20px; border-radius:var(--radius-lg); margin-bottom:15px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px; border:1px solid #e2ded4;">
+          <div style="background:var(--card-bg); padding:20px; border-radius:var(--radius-lg); margin-bottom:15px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px; border:1px solid #e2ded4; box-shadow:var(--shadow-soft);">
             <div>
-              <h3>No. Invoice: ${order.id}</h3>
-              <p><small>Tanggal Pemesanan: ${order.date} | Est. Tiba: ${order.eta}</small></p>
-              <p style="margin-top:5px;">Status: <strong style="color:${order.status.includes('Selesai') ? 'green' : '#cd9c20'};">${order.status}</strong></p>
+              <h3 style="color:var(--jet-black); margin-bottom:6px;">No. Invoice: ${order.id}</h3>
+              <p style="color:var(--text-muted); font-size:0.9rem; margin:2px 0;"><small>Tanggal Pemesanan: ${order.date} | Est. Tiba: ${order.eta}</small></p>
+              <p style="margin-top:6px;">Status: <strong style="color:${order.status && order.status.includes('Selesai') ? 'green' : '#cd9c20'};">${order.status || 'Diproses'}</strong></p>
             </div>
             <div style="display:flex; gap:10px; align-items:center;">
-              <a href="invoice.html?id=${order.id}" class="btn-primary" style="background:var(--jet-black); color:#fff;">Cetak Invoice</a>
-              ${!order.status.includes('Selesai') ? `<button class="btn-primary" onclick="confirmArrival(${index})">Pesanan Sudah Sampai</button>` : ''}
+              <a href="invoice.html?id=${order.id}" class="btn-primary" style="background:var(--jet-black); color:#fff; text-decoration:none; padding:8px 14px; font-size:0.9rem;">Cetak Invoice</a>
+              ${!(order.status && order.status.includes('Selesai')) ? `<button class="btn-primary" onclick="confirmArrival(${index})" style="padding:8px 14px; font-size:0.9rem; cursor:pointer;">Pesanan Sudah Sampai</button>` : ''}
               <button onclick="deleteSingleHistory(${index})" style="background:none; border:none; color:#e63946; cursor:pointer; font-size:1.2rem;" title="Hapus Item Ini">🗑️</button>
             </div>
           </div>
@@ -123,9 +170,11 @@
     function confirmArrival(index) {
       alert("Terima kasih! Pesanan Anda telah diselesaikan.");
       let history = JSON.parse(localStorage.getItem('pbHistory')) || [];
-      history[index].status = "Pesanan Selesai / Diterima";
-      localStorage.setItem('pbHistory', JSON.stringify(history));
-      renderHistory();
+      if (history[index]) {
+        history[index].status = "Pesanan Selesai / Diterima";
+        localStorage.setItem('pbHistory', JSON.stringify(history));
+        renderHistory();
+      }
     }
 
     function deleteSingleHistory(index) {
