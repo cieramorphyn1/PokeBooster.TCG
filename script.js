@@ -2,7 +2,7 @@ const products = [
   // --- SERI INGGRIS (EN) ---
   {
     id: 1,
-    name: "Pokémon TCG Sword & Shield: Evolving Skies Booster Box (EN)",
+    name: "Evolving Skies Booster Box (EN)",
     lang: "en",
     price: 38500000,
     img: "EVOLVINGSKIES.png",
@@ -10,7 +10,7 @@ const products = [
   },
   {
     id: 2,
-    name: "Pokémon TCG XY: Mega Evolution Series Booster Box (EN)",
+    name: "Mega Evolution Series Booster Box (EN)",
     lang: "en",
     price: 18500000,
     img: "MEGAEVO.png",
@@ -18,7 +18,7 @@ const products = [
   },
   {
     id: 3,
-    name: "Pokémon TCG Sword & Shield: Pitch Black Booster Box (EN)",
+    name: "Pitch Black Booster Box (EN)",
     lang: "en",
     price: 3800000,
     img: "PITCHBLACK.png",
@@ -28,7 +28,7 @@ const products = [
   // --- SERI INDONESIA (ID) ---
   {
     id: 4,
-    name: "Pokémon TCG Indonesia: Seri Hitam & Putih (S8b / AC6)",
+    name: "Hitam & Putih Booster box (ID)",
     lang: "id",
     price: 1250000,
     img: "HITAM & PUTIH.png",
@@ -36,7 +36,7 @@ const products = [
   },
   {
     id: 5,
-    name: "Pokémon TCG Indonesia: Seri Kilau Hitam (Shiny Treasure / Paldean Fates ID)",
+    name: "Kilau Hitam Booster Box (ID)",
     lang: "id",
     price: 1100000,
     img: "KILAU HITAM.png",
@@ -44,7 +44,7 @@ const products = [
   },
   {
     id: 6,
-    name: "Pokémon TCG Indonesia: Seri Evolusi Mega (ID)",
+    name: "Evolusi Mega Booster Box (ID)",
     lang: "id",
     price: 950000,
     img: "MAID.png",
@@ -54,7 +54,7 @@ const products = [
   // --- SERI JEPANG (JP) ---
   {
     id: 7,
-    name: "Pokémon TCG Japan: High Class Pack Mega Dream EX (JP)",
+    name: "High Class Pack Mega Dream EX (JP)",
     lang: "jp",
     price: 2800000,
     img: "MEGA DREAM EX.png",
@@ -62,7 +62,7 @@ const products = [
   },
   {
     id: 8,
-    name: "Pokémon TCG Japan: Phantasmal Flames / Ruler of the Black Flame (JP)",
+    name: "Phantasmal Flames Booster Box(JP)",
     lang: "jp",
     price: 1850000,
     img: "PHANTASMAL FLAMES.png",
@@ -70,7 +70,7 @@ const products = [
   },
   {
     id: 9,
-    name: "Pokémon TCG Japan: Scarlet ex Booster Box (SV1S JP)",
+    name: "Scarlet ex Booster Box (JP)",
     lang: "jp",
     price: 1450000,
     img: "SCARLET EX.png",
