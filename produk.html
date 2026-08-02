@@ -39,7 +39,8 @@
     </nav>
   </header>
 
-  <audio id="bgAudio" loop src="bgm.mp3"></audio> <!-- <--- input file audio -->
+  <!-- Audio Background -->
+  <audio id="bgAudio" loop src="Cynthia Theme Piano.mp3"></audio>
   <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
 
   <!-- Sidebar Filter Melayang Kiri -->
@@ -60,6 +61,7 @@
     <div class="product-grid" id="catalogGrid"></div>
   </div>
 
+  <!-- Cart Drawer -->
   <div class="cart-drawer" id="cartDrawer">
     <div class="drawer-header">
       <h3>Shopping Cart</h3>
@@ -82,18 +84,43 @@
     </div>
   </div>
 
+  <!-- Footer Rapi & Seragam -->
   <footer>
     <div class="footer-content">
       <div class="footer-col">
         <h4>Products</h4>
-        <ul><li>Booster Box Seri ID</li><li>Booster Box Seri EN</li><li>Booster Box Seri JP</li></ul>
+        <ul>
+          <li><a href="produk.html?lang=id">Booster Box Indonesia</a></li>
+          <li><a href="produk.html?lang=en">Booster Box Inggris</a></li>
+          <li><a href="produk.html?lang=jp">Booster Box Jepang</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Category</h4>
+        <ul>
+          <li>Scarlet & Violet Series</li>
+          <li>Sword & Shield Series</li>
+          <li>High Class Pack</li>
+        </ul>
       </div>
       <div class="footer-col">
         <h4>Company Info</h4>
-        <ul><li><a href="about.html" style="color:inherit;">About Us</a></li></ul>
+        <ul>
+          <li><a href="about.html">About Pokebooster</a></li>
+          <li><a href="about.html">The Collector Protocol</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <ul>
+          <li>Instagram: @pokebooster.tcg</li>
+          <li>WhatsApp Support</li>
+        </ul>
       </div>
     </div>
-    <div class="footer-bottom">&copy; 2026 Pokebooster.tcg — All Rights Reserved.</div>
+    <div class="footer-bottom">
+      &copy; 2026 Pokebooster.tcg — All Rights Reserved.
+    </div>
   </footer>
 
   <script src="script.js"></script>
@@ -108,7 +135,7 @@
         grid.innerHTML += `
           <div class="product-card" onclick="goToDetail(${p.id})">
             <div class="ultraball-icon card-ultraball-badge"></div>
-            <img src="${p.img}" class="product-img" alt="${p.name}"> <!-- <--- input foto produk -->
+            <img src="${p.img}" class="product-img" alt="${p.name}">
             <div class="card-amor-info">
               <div class="card-amor-title">${p.name}</div>
               <div class="card-amor-price">Rp ${p.price.toLocaleString('id-ID')}</div>
@@ -147,6 +174,26 @@
       }
       filterSearch();
     });
+
+    // Handling Autoplay Audio
+    document.addEventListener('click', function() {
+      const audio = document.getElementById('bgAudio');
+      if (audio && audio.paused) {
+        audio.play().catch(error => console.log("Autoplay diblokir browser:", error));
+      }
+    }, { once: true });
+
+    function toggleAudio() {
+      const audio = document.getElementById('bgAudio');
+      const btn = document.getElementById('audioBtn');
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = '🔊';
+      } else {
+        audio.pause();
+        btn.textContent = '🔇';
+      }
+    }
   </script>
 </body>
 </html>
