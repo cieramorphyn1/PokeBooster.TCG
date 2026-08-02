@@ -52,13 +52,15 @@
     <button class="filter-btn" id="btn-jp" onclick="filterLanguage('jp', this)">JP</button>
   </aside>
 
-  <div class="container" style="margin-left: 50px;">
+  <!-- Container Katalog Utama -->
+  <div class="container main-catalog-container">
     <h2 class="section-title">Booster Box Catalog</h2>
     
     <div class="search-container">
       <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search booster box name..." onkeyup="filterSearch()">
     </div>
 
+    <!-- Container Grid Produk (Akan Terbentuk 3x3 Otomatis via CSS) -->
     <div class="product-grid" id="productGrid"></div>
   </div>
 
