@@ -7,6 +7,21 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
+    /* Custom Theme Enhancements: The Collector Protocol */
+    :root {
+      --primary-neon: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.5);
+      --bg-dark: #090d16;
+      --card-bg: #111827;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: #f3f4f6;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
     /* Efek Item Jatuh Menggunakan POKEBALL.png */
     .falling-layer {
       position: fixed;
@@ -178,7 +193,7 @@
   <div class="cart-drawer" id="cartDrawer">
     <div class="drawer-header">
       <h3>Shopping Cart</h3>
-      <button onclick="toggleCartDrawer(false)" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+      <button onclick="toggleCartDrawer(false)" style="background:none; border:none; color:inherit; font-size:1.5rem; cursor:pointer;">&times;</button>
     </div>
     <div class="cart-items" id="cartItems"></div>
     
