@@ -50,7 +50,6 @@
       }
     }
 
-    /* Perbaikan Layout Form Checkout agar Tidak Bertumpuk/Berantakan */
     body {
       display: flex;
       flex-direction: column;
@@ -210,7 +209,8 @@
       localStorage.setItem('pbHistory', JSON.stringify(history));
 
       localStorage.removeItem('pbCart');
-      window.location.href = 'transaksi.html';
+      // Diarahkeun bener ka riwayat.html lain transaksi.html
+      window.location.href = 'riwayat.html';
     });
 
     document.addEventListener('click', function() {
@@ -231,9 +231,6 @@
         btn.textContent = '🔇';
       }
     }
-  </script>
-</body>
-</html>
   </script>
 </body>
 </html>
