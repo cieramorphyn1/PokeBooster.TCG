@@ -153,7 +153,7 @@ function renderCartDrawer() {
   cart.forEach(item => {
     cartContainer.innerHTML += `
       <div class="cart-item" style="display:flex; align-items:center; gap:10px; margin-bottom:12px; border-bottom:1px solid #eee; padding-bottom:8px;">
-        <img src="${item.img}" class="cart-item-img" alt="${item.name}" style="width:45px; height:45px; object-fit:cover; border-radius:6px;">
+        <img src="${item.img}" class="cart-item-img" alt="${item.name}" style="width:45px; height:45px; object-fit:cover; border-radius:6px;" onerror="this.src='https://via.placeholder.com/45?text=TCG'">
         <div style="flex:1;">
           <h4 style="font-size:0.85rem; line-height:1.2; margin-bottom:4px;">${item.name}</h4>
           <p style="color:var(--secondary-gold); font-weight:700; font-size:0.85rem; margin:0;">
@@ -235,7 +235,7 @@ function renderProductDetail() {
 
         <div style="display: flex; gap: 15px;">
           <button class="btn-primary" onclick="addToCart(${product.id}, event)" style="flex: 1; padding: 14px; font-size: 1rem;">+ Tambah ke Keranjang</button>
-          <a href="produk.html" class="btn-secondary" style="padding: 14px 20px; text-decoration: none; border: 1px solid #ccc; border-radius: var(--radius-md); color: var(--jet-black); font-weight: 600;">Kembali</a>
+          <a href="produk.html" class="btn-secondary" style="padding: 14px 20px; text-decoration: none; border: 1px solid #ccc; border-radius: var(--radius-md); color: var(--jet-black); font-weight: 600; display: inline-flex; align-items: center; justify-content: center;">Kembali</a>
         </div>
       </div>
     </div>
