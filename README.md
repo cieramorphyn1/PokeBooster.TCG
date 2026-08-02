@@ -1,0 +1,1 @@
+# PokeBooster.TCG
