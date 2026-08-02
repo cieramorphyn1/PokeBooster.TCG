@@ -1,6 +1,3 @@
-<!-- =========================================================
-     FILENAME: checkout.html
-     ========================================================= -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -27,7 +24,8 @@
     </div>
   </header>
 
-  <audio id="bgAudio" loop src="bgm.mp3"></audio> <!-- <--- INPUT FILE AUDIO BGM -->
+  <!-- Audio Background -->
+  <audio id="bgAudio" loop src="Cynthia Theme Piano.mp3"></audio>
   <button class="music-toggle-btn-floating" id="audioBtn" onclick="toggleAudio()" title="Toggle BGM Audio">🔊</button>
 
   <div class="centered-wrapper">
@@ -121,6 +119,26 @@
       localStorage.removeItem('pbCart');
       window.location.href = 'transaksi.html';
     });
+
+    // Handling Autoplay Audio
+    document.addEventListener('click', function() {
+      const audio = document.getElementById('bgAudio');
+      if (audio && audio.paused) {
+        audio.play().catch(error => console.log("Autoplay diblokir browser:", error));
+      }
+    }, { once: true });
+
+    function toggleAudio() {
+      const audio = document.getElementById('bgAudio');
+      const btn = document.getElementById('audioBtn');
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = '🔊';
+      } else {
+        audio.pause();
+        btn.textContent = '🔇';
+      }
+    }
   </script>
 </body>
 </html>
